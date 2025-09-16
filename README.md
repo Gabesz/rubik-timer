@@ -2,6 +2,10 @@
 
 Egy egyszerű, de funkcionális stopper óra alkalmazás Vue.js-sel, ami rögzíti a legjobb időket. **Kifejezetten live stream tartalomhoz készült**, ahol a nézők számára szórakoztató és interaktív időmérési eszköz.
 
+## 🚀 Demo
+
+**Élő demo**: [https://gabesz.github.io/rubik-timer/?edit=1](https://gabesz.github.io/rubik-timer/?edit=1)
+
 ## 🎥 Live Stream Használat
 
 Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatra lett optimalizálva. A jobb oldali elrendezés és a zöld háttér (normál módban) lehetővé teszi, hogy könnyedén integráld a stream overlay-edbe.
