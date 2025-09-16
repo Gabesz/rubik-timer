@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopper Óra</title>
+    <script src="vue.global.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            color: black;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        body.edit-mode {
+            background: transparent;
+        }
+
+        body:not(.edit-mode) {
+            background: #00FF00;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left-side {
+            width: 50%;
+            background: transparent;
+        }
+
+        .right-side {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .stopwatch-container {
+            text-align: center;
+            margin-bottom: 40px;
+            margin-top: 0;
+        }
+
+        .time-display {
+            font-size: 5.2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            font-family: 'Courier New', monospace;
+            color: #333;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .time-display.clickable {
+            cursor: pointer;
+        }
+
+        .time-display.clickable:hover {
+            color: #666;
+            transform: scale(1.02);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .btn-start {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-start:hover {
+            background-color: #45a049;
+        }
+
+        .btn-stop {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-stop:hover {
+            background-color: #da190b;
+        }
+
+        .btn-reset {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background-color: #e68900;
+        }
+
+        .live-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn-live {
+            background-color: #f44336;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+        }
+
+        .btn-live:hover {
+            background-color: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(244, 67, 54, 0.4);
+        }
+
+
+        .best-times {
+            width: 100%;
+            max-width: 400px;
+            align-self: flex-end;
+        }
+
+        .best-times h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .time-list {
+            list-style: none;
+        }
+
+        .time-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .time-item.clickable {
+            cursor: pointer;
+        }
+
+        .time-item.clickable:hover {
+            background-color: rgba(255, 0, 0, 0.1);
+            border-color: rgba(255, 0, 0, 0.3);
+        }
+
+
+        .time-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .time-ago {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #f44336;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .delete-btn:hover {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: #d32f2f;
+        }
+
+
+        .time-item:first-child {
+            background-color: rgba(76, 175, 80, 0.2);
+            border-color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .rank {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .time-value {
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .no-times {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        .keyboard-shortcuts {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .shortcut-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .shortcut-key {
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .shortcut-desc {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="left-side"></div>
+            <div class="right-side">
+                <div class="stopwatch-container">
+                    <div 
+                        class="time-display"
+                        :class="{ 'clickable': !isEditMode }"
+                        @click="!isEditMode ? switchToEditMode() : null"
+                    >{{ formattedTime }}</div>
+                    <div v-if="isEditMode" class="controls">
+                        <button 
+                            v-if="!isRunning" 
+                            @click="start" 
+                            class="btn btn-start"
+                        >
+                            Start
+                        </button>
+                        <button 
+                            v-if="isRunning" 
+                            @click="stop" 
+                            class="btn btn-stop"
+                        >
+                            Stop
+                        </button>
+                        <button 
+                            @click="reset" 
+                            class="btn btn-reset"
+                        >
+                            Reset & Save
+                        </button>
+                    </div>
+                    <div v-if="isEditMode" class="live-button-container">
+                        <button 
+                            @click="switchToLiveMode" 
+                            class="btn btn-live"
+                        >
+                            Leave edit mode
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="best-times">
+                    <ul class="time-list" v-if="bestTimes.length > 0">
+                        <li 
+                            v-for="(timeObj, index) in bestTimes" 
+                            :key="index" 
+                            class="time-item"
+                            :class="{ 'clickable': !isEditMode }"
+                            @click="!isEditMode ? removeTimeSimple(index) : null"
+                        >
+                            <div class="time-info">
+                                <span class="rank">{{ index + 1 }}.</span>
+                                <span class="time-value">{{ formatTime(timeObj.time) }}</span>
+                            </div>
+                            <div class="time-right">
+                                <span class="time-ago">{{ formatTimeAgo(timeObj.timestamp) }}</span>
+                                <button 
+                                    v-if="isEditMode"
+                                    @click="removeTime(index)"
+                                    class="delete-btn"
+                                    title="Törlés"
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                    <div v-else class="no-times">
+                        Még nincsenek rögzített idők
+                    </div>
+                    <div v-if="isEditMode" class="keyboard-shortcuts">
+                        <div class="shortcut-item">
+                            <span class="shortcut-key">Alt + S</span>
+                            <span class="shortcut-desc">Start/Stop</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-key">Alt + X</span>
+                            <span class="shortcut-desc">Reset & Save</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+                data() {
+                return {
+                    startTime: null,
+                    elapsedTime: 0,
+                    isRunning: false,
+                    intervalId: null,
+                    bestTimes: [],
+                    isEditMode: false
+                }
+            },
+            computed: {
+                formattedTime() {
+                    const minutes = Math.floor(this.elapsedTime / 60000);
+                    const seconds = Math.floor((this.elapsedTime % 60000) / 1000);
+                    const centiseconds = Math.floor((this.elapsedTime % 1000) / 10);
+                    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${centiseconds.toString().padStart(2, '0')}`;
+                }
+            },
+            mounted() {
+                this.checkEditMode();
+                this.loadBestTimes();
+                this.setupKeyboardShortcuts();
+                this.setupTimeUpdater();
+            },
+            methods: {
+                start() {
+                    if (!this.isRunning) {
+                        this.startTime = Date.now() - this.elapsedTime;
+                        this.isRunning = true;
+                        this.intervalId = setInterval(() => {
+                            this.elapsedTime = Date.now() - this.startTime;
+                        }, 10);
+                    }
+                },
+                stop() {
+                    if (this.isRunning) {
+                        this.isRunning = false;
+                        clearInterval(this.intervalId);
+                    }
+                },
+                reset() {
+                    if (this.elapsedTime > 1000) { // Csak akkor mentse, ha legalább 1 másodperc
+                        this.saveTime();
+                    }
+                    this.isRunning = false;
+                    clearInterval(this.intervalId);
+                    this.elapsedTime = 0;
+                    this.startTime = null;
+                },
+                saveTime() {
+                    this.bestTimes.push({
+                        time: this.elapsedTime,
+                        timestamp: Date.now()
+                    });
+                    this.bestTimes.sort((a, b) => a.time - b.time);
+                    this.bestTimes = this.bestTimes.slice(0, 10);
+                    this.saveBestTimes();
+                },
+                formatTime(milliseconds) {
+                    const minutes = Math.floor(milliseconds / 60000);
+                    const seconds = Math.floor((milliseconds % 60000) / 1000);
+                    const centiseconds = Math.floor((milliseconds % 1000) / 10);
+                    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${centiseconds.toString().padStart(2, '0')}`;
+                },
+                formatTimeAgo(timestamp) {
+                    const now = Date.now();
+                    const diff = now - timestamp;
+                    const minutes = Math.floor(diff / 60000);
+                    const hours = Math.floor(diff / 3600000);
+                    const days = Math.floor(diff / 86400000);
+                    
+                    if (days > 0) {
+                        return `${days} napja`;
+                    } else if (hours > 0) {
+                        return `${hours} órája`;
+                    } else if (minutes > 0) {
+                        return `${minutes} perce`;
+                    } else {
+                        return 'most';
+                    }
+                },
+                saveBestTimes() {
+                    localStorage.setItem('stopperBestTimes', JSON.stringify(this.bestTimes));
+                },
+                loadBestTimes() {
+                    const saved = localStorage.getItem('stopperBestTimes');
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        // Ha régi formátum (csak számok), konvertáljuk új formátumra
+                        if (parsed.length > 0 && typeof parsed[0] === 'number') {
+                            this.bestTimes = parsed.map(time => ({
+                                time: time,
+                                timestamp: Date.now() // Jelenlegi időt használunk, mivel nincs régi timestamp
+                            }));
+                        } else {
+                            this.bestTimes = parsed;
+                        }
+                    }
+                },
+                removeTime(index) {
+                    if (confirm('Biztosan törölni szeretnéd ezt az időt?')) {
+                        this.bestTimes.splice(index, 1);
+                        this.saveBestTimes();
+                    }
+                },
+                removeTimeSimple(index) {
+                    this.bestTimes.splice(index, 1);
+                    this.saveBestTimes();
+                },
+                setupKeyboardShortcuts() {
+                    document.addEventListener('keydown', (event) => {
+                        if (event.altKey && event.key === 's') {
+                            event.preventDefault();
+                            if (this.isRunning) {
+                                this.stop();
+                            } else {
+                                this.start();
+                            }
+                        }
+                        if (event.altKey && event.key === 'x') {
+                            event.preventDefault();
+                            this.reset();
+                        }
+                    });
+                },
+                setupTimeUpdater() {
+                    // Frissítsük az időbélyegeket percenként
+                    setInterval(() => {
+                        // Vue reaktivitás miatt kényszerítjük a frissítést
+                        this.$forceUpdate();
+                    }, 60000); // 60 másodperc = 1 perc
+                },
+                checkEditMode() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    this.isEditMode = urlParams.get('edit') === '1';
+                    
+                    // Body osztály beállítása
+                    if (this.isEditMode) {
+                        document.body.classList.add('edit-mode');
+                    } else {
+                        document.body.classList.remove('edit-mode');
+                    }
+                },
+                switchToEditMode() {
+                    // URL frissítése edit módra
+                    const url = new URL(window.location);
+                    url.searchParams.set('edit', '1');
+                    window.location.href = url.toString();
+                },
+                switchToLiveMode() {
+                    // URL frissítése normál módra (edit paraméter eltávolítása)
+                    const url = new URL(window.location);
+                    url.searchParams.delete('edit');
+                    window.location.href = url.toString();
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
