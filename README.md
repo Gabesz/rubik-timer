@@ -1,6 +1,17 @@
 # Stopper Óra
 
-Egy egyszerű, de funkcionális stopper óra alkalmazás Vue.js-sel, ami rögzíti a legjobb időket.
+Egy egyszerű, de funkcionális stopper óra alkalmazás Vue.js-sel, ami rögzíti a legjobb időket. **Kifejezetten live stream tartalomhoz készült**, ahol a nézők számára szórakoztató és interaktív időmérési eszköz.
+
+## 🎥 Live Stream Használat
+
+Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatra lett optimalizálva. A jobb oldali elrendezés és a zöld háttér (normál módban) lehetővé teszi, hogy könnyedén integráld a stream overlay-edbe.
+
+### Ajánlott Stream Beállítások:
+- **Forrás típus**: Browser Source
+- **URL**: `index.html` (normál mód) vagy `index.html?edit=1` (szerkesztési mód)
+- **Pozíció**: Jobb oldali terület
+- **Méret**: FullHD kijelző jobb fele
+- **Interakció**: Edit módban teljes funkcionalitás, normál módban csak megjelenítés
 
 ## Funkciók
 
@@ -49,6 +60,21 @@ Egy egyszerű, de funkcionális stopper óra alkalmazás Vue.js-sel, ami rögzí
 1. Töltsd le a fájlokat
 2. Nyisd meg az `index.html`-t böngészőben
 3. Kész! Offline működik
+
+## 🎬 OBS Studio Integráció
+
+### Browser Source Beállítása:
+1. **OBS Studio** → Add Source → Browser Source
+2. **URL**: Add meg a fájl teljes elérési útját (pl. `file:///C:/path/to/index.html`)
+3. **Width**: 960px (FullHD jobb fele)
+4. **Height**: 1080px
+5. **Interact**: ✅ (ha szerkeszteni szeretnéd)
+
+### Stream Overlay Optimalizáció:
+- **Normál mód** (`index.html`) - Nézőknek látható, zöld háttér
+- **Edit mód** (`index.html?edit=1`) - Szerkesztéshez, transparent háttér
+- **Jobb oldali pozíció** - Nem takarja a fő tartalmat
+- **Nagy betűk** - Jól látható stream minőségben
 
 ## Technikai Részletek
 
