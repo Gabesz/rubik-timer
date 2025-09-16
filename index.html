@@ -37,8 +37,8 @@
         }
 
         .container.edit-mode {
-            justify-content: center; padding-top: 20px;
-            align-items: center;
+            justify-content: center; 
+            align-items: flex-start; padding-top: 20px;
         }
 
         .left-side {
@@ -61,15 +61,15 @@
 
         .right-side.edit-mode {
             width: 100%;
-            justify-content: center; padding-top: 20px;
-            align-items: center;
-            padding: 10px; border: none; background-color: transparent; background-color: transparent;
+            justify-content: center; 
+            align-items: flex-start; padding-top: 20px;
+            padding: 10px; border: none; background-color: transparent; margin: 0 auto;
         }
 
         /* Edit mód responsive design */
         @media (max-width: 768px) {
             body.edit-mode .right-side {
-                padding: 10px; border: none; background-color: transparent; background-color: transparent;
+                padding: 10px; border: none; background-color: transparent; margin: 0 auto;
                 width: 100%;
                 max-width: 100%;
             }
@@ -197,7 +197,8 @@
         .stopwatch-container {
             text-align: center; 
             margin-bottom: 10px;
-            margin-top: 0;
+            
+            margin: 0 auto;
         }
 
         .time-display {
@@ -226,14 +227,14 @@
         .controls {
             display: flex; justify-content: flex-end;
             gap: 8px;
-            justify-content: center; padding-top: 20px;
+            justify-content: center; 
             margin-bottom: 0px;
         }
 
         .btn {
             padding: 12px 24px;
             font-size: 1.1rem;
-            border: none; background-color: transparent; background-color: transparent;
+            border: none; background-color: transparent; margin: 0 auto;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -316,14 +317,15 @@
             background-color: rgba(255, 255, 255, 1);
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            padding: 2px 12px;
+            padding: 0;
             margin-bottom: 8px;
             display: flex; justify-content: flex-end;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start; 
             font-size: 1.1rem;
             font-family: 'Courier New', monospace;
             transition: all 0.3s ease;
+            padding:13px 20px 10px 20px;
         }
 
         .time-item.clickable {
@@ -338,13 +340,14 @@
 
         .time-info {
             display: flex; justify-content: flex-end;
-            align-items: center; 
+            align-items: flex-start; 
             gap: 8px;
+           
         }
 
         .time-right {
             display: flex; justify-content: flex-end;
-            align-items: center; 
+            align-items: flex-start; 
             gap: 10px;
         }
 
@@ -352,16 +355,17 @@
             font-size: 0.9rem;
             /* color: #666; */
             font-style: italic;
+            padding-top: 3px;
         }
 
         .delete-btn {
             background: none;
-            border: none; background-color: transparent; background-color: transparent;
+            border: none; background-color: transparent; margin: 0 auto;
             color: #f44336;
             font-size: 1.5rem;
             font-weight: bold;
             cursor: pointer;
-            padding: 2px 6px;
+            
             border-radius: 4px;
             transition: all 0.3s ease;
             line-height: 1;
@@ -392,8 +396,9 @@
         .no-times {
             text-align: center; 
             /* color: #666; */
+            font-weight:bold;
             font-style: italic;
-            padding: 20px;  background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;  
         }
 
         .keyboard-shortcuts {
@@ -407,7 +412,7 @@
         .shortcut-item {
             display: flex; justify-content: flex-end;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start; padding-top: 20px;
             margin-bottom: 8px;
             font-size: 0.9rem;
         }
@@ -442,7 +447,7 @@
             font-weight: bold;
             padding: 12px 24px;
             border-radius: 8px;
-            border: none; background-color: transparent; background-color: transparent;
+            border: none; background-color: transparent; margin: 0 auto;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -455,7 +460,7 @@
         .source-link {
             text-align: center; 
             margin-top: 0;
-            padding: 10px; border: none; background-color: transparent; background-color: transparent;
+            padding: 10px; border: none; background-color: transparent; margin: 0 auto;
         }
 
         .source-link a {
