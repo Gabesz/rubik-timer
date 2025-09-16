@@ -28,8 +28,8 @@ Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatr
 - **localStorage** tárolás (adatok megmaradnak)
 
 ### 🎨 Két Mód
-- **Normál mód** (`index.html`) - Zöld háttér, tiszta megjelenés
-- **Edit mód** (`index.html?edit=1`) - Transparent háttér, teljes funkcionalitás
+- **Normál mód** (`index.html`) - Zöld háttér, jobb oldali elrendezés, tiszta megjelenés
+- **Edit mód** (`index.html?edit=1`) - Transparent háttér, teljes képernyős középre igazított elrendezés, 2x nagyobb stopper óra
 
 ## Használat
 
@@ -71,10 +71,11 @@ Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatr
 5. **Interact**: ✅ (ha szerkeszteni szeretnéd)
 
 ### Stream Overlay Optimalizáció:
-- **Normál mód** (`index.html`) - Nézőknek látható, zöld háttér
-- **Edit mód** (`index.html?edit=1`) - Szerkesztéshez, transparent háttér
-- **Jobb oldali pozíció** - Nem takarja a fő tartalmat
-- **Nagy betűk** - Jól látható stream minőségben
+- **Normál mód** (`index.html`) - Nézőknek látható, zöld háttér, jobb oldali elrendezés
+- **Edit mód** (`index.html?edit=1`) - Szerkesztéshez, transparent háttér, teljes képernyős középre igazított
+- **Jobb oldali pozíció** - Nem takarja a fő tartalmat normál módban
+- **Nagy betűk** - Jól látható stream minőségben (edit módban 2x nagyobb)
+- **Teljes képernyős edit** - Edit módban minden középen, ideális szerkesztéshez
 
 ## Technikai Részletek
 
@@ -89,6 +90,7 @@ Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatr
 2. **Eredmények**: Automatikusan rangsorolva (legjobb felül)
 3. **Törlés**: Normál módban sorra kattintás, edit módban X gomb
 4. **Mód váltás**: Stopper órára kattintás vagy "Leave edit mode" gomb
+5. **Elrendezés**: Normál módban jobb oldali, edit módban teljes képernyős középre igazított
 
 ## Színek
 

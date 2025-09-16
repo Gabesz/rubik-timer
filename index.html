@@ -32,9 +32,18 @@
             height: 100vh;
         }
 
+        .container.edit-mode {
+            justify-content: center;
+            align-items: center;
+        }
+
         .left-side {
             width: 50%;
             background: transparent;
+        }
+
+        .left-side.edit-mode {
+            display: none;
         }
 
         .right-side {
@@ -44,6 +53,12 @@
             justify-content: flex-start;
             align-items: flex-end;
             padding: 20px;
+        }
+
+        .right-side.edit-mode {
+            width: 100%;
+            justify-content: center;
+            align-items: center;
         }
 
         .stopwatch-container {
@@ -60,6 +75,10 @@
             color: #333;
             transition: all 0.3s ease;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .time-display.edit-mode {
+            font-size: 10.4rem;
         }
 
         .time-display.clickable {
@@ -144,6 +163,10 @@
             width: 100%;
             max-width: 400px;
             align-self: flex-end;
+        }
+
+        .best-times.edit-mode {
+            align-self: center;
         }
 
         .best-times h3 {
@@ -277,13 +300,13 @@
 </head>
 <body>
     <div id="app">
-        <div class="container">
-            <div class="left-side"></div>
-            <div class="right-side">
+        <div class="container" :class="{ 'edit-mode': isEditMode }">
+            <div class="left-side" :class="{ 'edit-mode': isEditMode }"></div>
+            <div class="right-side" :class="{ 'edit-mode': isEditMode }">
                 <div class="stopwatch-container">
                     <div 
                         class="time-display"
-                        :class="{ 'clickable': !isEditMode }"
+                        :class="{ 'clickable': !isEditMode, 'edit-mode': isEditMode }"
                         @click="!isEditMode ? switchToEditMode() : null"
                     >{{ formattedTime }}</div>
                     <div v-if="isEditMode" class="controls">
@@ -318,7 +341,7 @@
                     </div>
                 </div>
                 
-                <div class="best-times">
+                <div class="best-times" :class="{ 'edit-mode': isEditMode }">
                     <ul class="time-list" v-if="bestTimes.length > 0">
                         <li 
                             v-for="(timeObj, index) in bestTimes" 
