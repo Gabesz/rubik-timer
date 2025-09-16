@@ -22,7 +22,8 @@
         }
 
         body.edit-mode {
-            overflow: auto;
+            overflow-x: hidden;
+            overflow-y: auto;
             background: transparent;
         }
 
@@ -62,6 +63,135 @@
             width: 100%;
             justify-content: center;
             align-items: center;
+            padding: 10px;
+        }
+
+        /* Edit mód responsive design */
+        @media (max-width: 768px) {
+            body.edit-mode .right-side {
+                padding: 10px;
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            body.edit-mode .time-display {
+                font-size: 5rem !important;
+                margin-bottom: 20px;
+            }
+            
+            body.edit-mode .controls {
+                flex-direction: column !important;
+                gap: 10px;
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto 20px auto;
+            }
+            
+            body.edit-mode .btn {
+                width: 100% !important;
+                min-width: auto;
+                padding: 15px 20px;
+                font-size: 1.2rem;
+            }
+            
+            body.edit-mode .live-button-container {
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto 20px auto;
+            }
+            
+            body.edit-mode .btn-live {
+                width: 100%;
+                padding: 15px 20px;
+                font-size: 1.2rem;
+            }
+            
+            body.edit-mode .best-times {
+                width: 100%;
+                max-width: 320px;
+                padding: 0;
+            }
+            
+            body.edit-mode .time-item {
+                padding: 12px 15px;
+                font-size: 1rem;
+                margin-bottom: 6px;
+            }
+            
+            body.edit-mode .keyboard-shortcuts {
+                width: 100%;
+                max-width: 320px;
+                margin: 20px 0 0 0;
+                padding: 15px;
+            }
+            
+            body.edit-mode .clear-all-container {
+                width: 100%;
+                max-width: 320px;
+                margin: 15px 0;
+            }
+            
+            body.edit-mode .btn-clear-all {
+                width: 100%;
+                padding: 12px 20px;
+                font-size: 1.1rem;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+            body.edit-mode .right-side {
+                padding: 5px;
+            }
+            
+            body.edit-mode .time-display {
+                font-size: 3.5rem !important;
+                margin-bottom: 15px;
+            }
+            
+            body.edit-mode .controls {
+                max-width: 260px;
+                gap: 8px;
+                margin: 0 auto 20px auto;
+            }
+            
+            body.edit-mode .btn {
+                padding: 12px 15px;
+                font-size: 1.1rem;
+            }
+            
+            body.edit-mode .live-button-container {
+                max-width: 260px;
+                margin: 0 auto 20px auto;
+            }
+            
+            body.edit-mode .btn-live {
+                padding: 12px 15px;
+                font-size: 1.1rem;
+            }
+            
+            body.edit-mode .best-times {
+                max-width: 280px;
+            }
+            
+            body.edit-mode .time-item {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            body.edit-mode .keyboard-shortcuts {
+                max-width: 280px;
+                padding: 12px;
+            }
+            
+            body.edit-mode .clear-all-container {
+                max-width: 280px;
+            }
+            
+            body.edit-mode .btn-clear-all {
+                padding: 10px 15px;
+                font-size: 1rem;
+            }
         }
 
         .stopwatch-container {
@@ -354,11 +484,12 @@
                         :class="{ 'clickable': !isEditMode, 'edit-mode': isEditMode }"
                         @click="!isEditMode ? switchToEditMode() : null"
                     >{{ formattedTime }}</div>
-                    <div v-if="isEditMode" class="controls">
+                    <div v-if="isEditMode" class="controls" :class="{ 'edit-mode': isEditMode }">
                         <button 
                             v-if="!isRunning" 
                             @click="start" 
                             class="btn btn-start"
+                            :class="{ 'edit-mode': isEditMode }"
                         >
                             Start
                         </button>
@@ -366,20 +497,23 @@
                             v-if="isRunning" 
                             @click="stop" 
                             class="btn btn-stop"
+                            :class="{ 'edit-mode': isEditMode }"
                         >
                             Stop
                         </button>
                         <button 
                             @click="reset" 
                             class="btn btn-reset"
+                            :class="{ 'edit-mode': isEditMode }"
                         >
                             Reset & Save
                         </button>
                     </div>
-                    <div v-if="isEditMode" class="live-button-container">
+                    <div v-if="isEditMode" class="live-button-container" :class="{ 'edit-mode': isEditMode }">
                         <button 
                             @click="switchToLiveMode" 
                             class="btn btn-live"
+                            :class="{ 'edit-mode': isEditMode }"
                         >
                             Leave edit mode
                         </button>
@@ -392,7 +526,7 @@
                             v-for="(timeObj, index) in bestTimes" 
                             :key="index" 
                             class="time-item"
-                            :class="{ 'clickable': !isEditMode }"
+                            :class="{ 'clickable': !isEditMode, 'edit-mode': isEditMode }"
                             @click="!isEditMode ? removeTimeSimple(index) : null"
                         >
                             <div class="time-info">
@@ -415,15 +549,16 @@
                     <div v-else class="no-times">
                         Még nincsenek rögzített idők
                     </div>
-                    <div v-if="isEditMode && bestTimes.length > 0" class="clear-all-container">
+                    <div v-if="isEditMode && bestTimes.length > 0" class="clear-all-container" :class="{ 'edit-mode': isEditMode }">
                         <button 
                             @click="clearAllTimes" 
                             class="btn btn-clear-all"
+                            :class="{ 'edit-mode': isEditMode }"
                         >
                             Összes törlése
                         </button>
                     </div>
-                    <div v-if="isEditMode" class="keyboard-shortcuts">
+                    <div v-if="isEditMode" class="keyboard-shortcuts" :class="{ 'edit-mode': isEditMode }">
                         <div class="shortcut-item">
                             <span class="shortcut-key">Alt + S</span>
                             <span class="shortcut-desc">Start/Stop</span>

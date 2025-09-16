@@ -29,7 +29,7 @@ Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatr
 
 ### 🎨 Két Mód
 - **Normál mód** (`index.html`) - Zöld háttér, jobb oldali elrendezés, tiszta megjelenés
-- **Edit mód** (`index.html?edit=1`) - Transparent háttér, teljes képernyős középre igazított elrendezés, 2x nagyobb stopper óra
+- **Edit mód** (`index.html?edit=1`) - Transparent háttér, teljes képernyős középre igazított elrendezés, 2x nagyobb stopper óra, responsive design mobilon
 
 ## Használat
 
@@ -43,6 +43,8 @@ Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatr
 - X gombok a sorok végén (megerősítéssel)
 - Billentyűzet kombinációk megjelenítése
 - "Leave edit mode" gomb
+- "Összes törlése" gomb (megerősítéssel)
+- Responsive design mobilon (függőleges gombok, kisebb stopper óra)
 
 ## Billentyűzet Rövidítések
 
@@ -52,7 +54,8 @@ Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatr
 ## Fájlok
 
 - `index.html` - Fő alkalmazás
-- `vue.global.js` - Vue.js 3 könyvtár
+- `vue.global.prod.js` - Vue.js 3 production könyvtár
+- `favicon.svg` - Stopper óra ikon
 - `README.md` - Dokumentáció
 
 ## Telepítés
@@ -76,13 +79,16 @@ Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatr
 - **Jobb oldali pozíció** - Nem takarja a fő tartalmat normál módban
 - **Nagy betűk** - Jól látható stream minőségben (edit módban 2x nagyobb)
 - **Teljes képernyős edit** - Edit módban minden középen, ideális szerkesztéshez
+- **Responsive design** - Edit módban mobilon is tökéletesen működik
 
 ## Technikai Részletek
 
-- **Vue.js 3** - Modern JavaScript framework
+- **Vue.js 3** - Modern JavaScript framework (production build)
 - **localStorage** - Adatok tárolása
 - **CSS3** - Modern stílusok és animációk
-- **Responsive design** - FullHD kijelzőre optimalizálva
+- **Responsive design** - FullHD kijelzőre optimalizálva, mobilon is működik
+- **SVG favicon** - Stopper óra ikon
+- **Media queries** - Tablet és mobil optimalizáció
 
 ## Működés
 
