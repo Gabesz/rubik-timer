@@ -28,7 +28,7 @@
         }
 
         body:not(.edit-mode) {
-            background: #00FF00;
+            background-color: #00FF00;
         }
 
         .container {
@@ -56,20 +56,20 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-end;
-            padding: 20px;  background-color: rgba(0, 0, 0, 0.5); background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;  background-color: rgba(0, 0, 0, 0.5);
         }
 
         .right-side.edit-mode {
             width: 100%;
             justify-content: center; padding-top: 20px;
             align-items: center;
-            padding: 10px; border: none; background-color: transparent;
+            padding: 10px; border: none; background-color: transparent; background-color: transparent;
         }
 
         /* Edit mód responsive design */
         @media (max-width: 768px) {
             body.edit-mode .right-side {
-                padding: 10px; border: none; background-color: transparent;
+                padding: 10px; border: none; background-color: transparent; background-color: transparent;
                 width: 100%;
                 max-width: 100%;
             }
@@ -197,7 +197,7 @@
         .stopwatch-container {
             text-align: center; 
             margin-bottom: 10px;
-            margin-top: -10px;
+            margin-top: 0;
         }
 
         .time-display {
@@ -233,7 +233,7 @@
         .btn {
             padding: 12px 24px;
             font-size: 1.1rem;
-            border: none; background-color: transparent;
+            border: none; background-color: transparent; background-color: transparent;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -252,7 +252,7 @@
         }
 
         .btn-stop {
-            background-color: #f44336;
+            background-color: #d32f2f;
             color: white;
         }
 
@@ -271,12 +271,12 @@
 
         .live-button-container {
             display: flex; justify-content: flex-end;
-            justify-content: center; padding-top: 20px;
-            margin-top: -10px;
+            justify-content: center; padding-top: 10px; padding-bottom:5px;
+            margin-top: 0;
         }
 
         .btn-live {
-            background-color: #f44336;
+            background-color: #d32f2f;
             color: white;
             font-size: 1.2rem;
             font-weight: bold;
@@ -287,7 +287,6 @@
 
         .btn-live:hover {
             background-color: #d32f2f;
-            transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(244, 67, 54, 0.4);
         }
 
@@ -299,7 +298,7 @@
         }
 
         .best-times.edit-mode {
-            align-self: center; width: 100%; max-width: 600px; margin-top: 10px;
+            align-self: center; width: 100%; max-width: 600px; margin-top: 0;
         }
 
         .best-times h3 {
@@ -357,7 +356,7 @@
 
         .delete-btn {
             background: none;
-            border: none; background-color: transparent;
+            border: none; background-color: transparent; background-color: transparent;
             color: #f44336;
             font-size: 1.5rem;
             font-weight: bold;
@@ -394,11 +393,11 @@
             text-align: center; 
             /* color: #666; */
             font-style: italic;
-            padding: 20px;  background-color: rgba(0, 0, 0, 0.5); background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;  background-color: rgba(0, 0, 0, 0.5);
         }
 
         .keyboard-shortcuts {
-            margin-top: -10px;
+            margin-top: 0;
             padding: 15px;
             background-color: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
@@ -432,32 +431,31 @@
 
         .clear-all-container {
             display: flex; justify-content: flex-end;
-            justify-content: center; padding-top: 20px;
-            margin-top: -10px;
+            justify-content: center; padding-top: 5px; padding-bottom:10px;
+            margin-top: 0;
         }
 
         .btn-clear-all {
-            background-color: #f44336;
+            background-color: #d32f2f !important;
             color: white;
             font-size: 1.1rem;
             font-weight: bold;
             padding: 12px 24px;
             border-radius: 8px;
-            border: none; background-color: transparent;
+            border: none; background-color: transparent; background-color: transparent;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .btn-clear-all:hover {
             background-color: #d32f2f;
-            transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
         }
 
         .source-link {
             text-align: center; 
-            margin-top: -10px;
-            padding: 10px; border: none; background-color: transparent;
+            margin-top: 0;
+            padding: 10px; border: none; background-color: transparent; background-color: transparent;
         }
 
         .source-link a {
