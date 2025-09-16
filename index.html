@@ -20,6 +20,7 @@
         }
 
         body.edit-mode {
+            overflow: auto;
             background: transparent;
         }
 
@@ -296,6 +297,48 @@
         .shortcut-desc {
             color: #666;
         }
+
+        .clear-all-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn-clear-all {
+            background-color: #f44336;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-clear-all:hover {
+            background-color: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+        }
+
+        .source-link {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+        .source-link a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-style: italic;
+            transition: color 0.3s ease;
+        }
+
+        .source-link a:hover {
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -370,6 +413,14 @@
                     <div v-else class="no-times">
                         Még nincsenek rögzített idők
                     </div>
+                    <div v-if="isEditMode && bestTimes.length > 0" class="clear-all-container">
+                        <button 
+                            @click="clearAllTimes" 
+                            class="btn btn-clear-all"
+                        >
+                            Összes törlése
+                        </button>
+                    </div>
                     <div v-if="isEditMode" class="keyboard-shortcuts">
                         <div class="shortcut-item">
                             <span class="shortcut-key">Alt + S</span>
@@ -379,6 +430,9 @@
                             <span class="shortcut-key">Alt + X</span>
                             <span class="shortcut-desc">Reset & Save</span>
                         </div>
+                    </div>
+                    <div v-if="isEditMode" class="source-link">
+                        <a href="https://github.com/Gabesz/rubik-timer" target="_blank">@https://github.com/Gabesz/rubik-timer</a>
                     </div>
                 </div>
             </div>
@@ -497,6 +551,12 @@
                 removeTimeSimple(index) {
                     this.bestTimes.splice(index, 1);
                     this.saveBestTimes();
+                },
+                clearAllTimes() {
+                    if (confirm('Biztosan törölni szeretnéd az összes mentett időt?')) {
+                        this.bestTimes = [];
+                        this.saveBestTimes();
+                    }
                 },
                 setupKeyboardShortcuts() {
                     document.addEventListener('keydown', (event) => {
