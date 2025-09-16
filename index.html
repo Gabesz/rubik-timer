@@ -32,7 +32,7 @@
         }
 
         .container {
-            display: flex;
+            display: flex; justify-content: flex-end;
             height: 100vh;
         }
 
@@ -42,7 +42,7 @@
         }
 
         .left-side {
-            width: 50%;
+            width: 450px;
             background: transparent;
         }
 
@@ -51,25 +51,25 @@
         }
 
         .right-side {
-            width: 50%;
-            display: flex;
+            width: 450px;
+            display: flex; justify-content: flex-end;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-end;
-            padding: 20px;
+            padding: 20px;  background-color: rgba(0, 0, 0, 0.5); background-color: rgba(0, 0, 0, 0.5);
         }
 
         .right-side.edit-mode {
             width: 100%;
             justify-content: center; padding-top: 20px;
             align-items: center;
-            padding: 10px;
+            padding: 10px; border: none; background-color: transparent;
         }
 
         /* Edit mód responsive design */
         @media (max-width: 768px) {
             body.edit-mode .right-side {
-                padding: 10px;
+                padding: 10px; border: none; background-color: transparent;
                 width: 100%;
                 max-width: 100%;
             }
@@ -224,7 +224,7 @@
         }
 
         .controls {
-            display: flex;
+            display: flex; justify-content: flex-end;
             gap: 8px;
             justify-content: center; padding-top: 20px;
             margin-bottom: 0px;
@@ -233,7 +233,7 @@
         .btn {
             padding: 12px 24px;
             font-size: 1.1rem;
-            border: none;
+            border: none; background-color: transparent;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -270,7 +270,7 @@
         }
 
         .live-button-container {
-            display: flex;
+            display: flex; justify-content: flex-end;
             justify-content: center; padding-top: 20px;
             margin-top: -10px;
         }
@@ -294,7 +294,7 @@
 
         .best-times {
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             align-self: flex-end;
         }
 
@@ -314,12 +314,12 @@
         }
 
         .time-item {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 1);
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             padding: 2px 12px;
             margin-bottom: 8px;
-            display: flex;
+            display: flex; justify-content: flex-end;
             justify-content: space-between;
             align-items: center;
             font-size: 1.1rem;
@@ -338,13 +338,13 @@
 
 
         .time-info {
-            display: flex;
+            display: flex; justify-content: flex-end;
             align-items: center; 
             gap: 8px;
         }
 
         .time-right {
-            display: flex;
+            display: flex; justify-content: flex-end;
             align-items: center; 
             gap: 10px;
         }
@@ -357,7 +357,7 @@
 
         .delete-btn {
             background: none;
-            border: none;
+            border: none; background-color: transparent;
             color: #f44336;
             font-size: 1.5rem;
             font-weight: bold;
@@ -375,7 +375,7 @@
 
 
         .time-item:first-child {
-            background-color: rgba(76, 175, 80, 0.2);
+            background-color: rgba(255, 255, 255, 1);
             border-color: #4CAF50;
             font-weight: bold;
         }
@@ -394,7 +394,7 @@
             text-align: center; 
             /* color: #666; */
             font-style: italic;
-            padding: 20px;
+            padding: 20px;  background-color: rgba(0, 0, 0, 0.5); background-color: rgba(0, 0, 0, 0.5);
         }
 
         .keyboard-shortcuts {
@@ -406,7 +406,7 @@
         }
 
         .shortcut-item {
-            display: flex;
+            display: flex; justify-content: flex-end;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 8px;
@@ -431,7 +431,7 @@
         }
 
         .clear-all-container {
-            display: flex;
+            display: flex; justify-content: flex-end;
             justify-content: center; padding-top: 20px;
             margin-top: -10px;
         }
@@ -443,7 +443,7 @@
             font-weight: bold;
             padding: 12px 24px;
             border-radius: 8px;
-            border: none;
+            border: none; background-color: transparent;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -457,7 +457,7 @@
         .source-link {
             text-align: center; 
             margin-top: -10px;
-            padding: 10px;
+            padding: 10px; border: none; background-color: transparent;
         }
 
         .source-link a {
