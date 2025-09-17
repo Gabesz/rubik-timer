@@ -22,13 +22,15 @@ body:not(.edit-mode) {
 }
 
 .container {
-    display: flex; justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
     height: 100vh;
 }
 
 .container.edit-mode {
-    justify-content: center; 
-    align-items: flex-start; padding-top: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 20px;
 }
 
 .left-side {
@@ -42,18 +44,22 @@ body:not(.edit-mode) {
 
 .right-side {
     width: 450px;
-    display: flex; justify-content: flex-end;
+    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-end;
-    padding: 20px;  background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .right-side.edit-mode {
     width: 100%;
-    justify-content: center; 
-    align-items: flex-start; padding-top: 20px;
-    padding: 10px; border: none; background-color: transparent; margin: 0 auto;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    margin: 0 auto;
 }
 
 /* Edit mód responsive design */
@@ -185,10 +191,8 @@ body:not(.edit-mode) {
 }
 
 .stopwatch-container {
-    text-align: center; 
-    margin-bottom: 10px;
-    
-    margin: 0 auto;
+    text-align: center;
+    margin: 0 auto 10px auto;
 }
 
 .time-display {
@@ -209,22 +213,18 @@ body:not(.edit-mode) {
     cursor: pointer;
 }
 
-.time-display.clickable:hover {
-    /* color: #666; */
-    /* transform: scale(1.02); */
-}
 
 .controls {
-    display: flex; justify-content: flex-end;
+    display: flex;
+    justify-content: center;
     gap: 8px;
-    justify-content: center; 
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .btn {
     padding: 12px 24px;
     font-size: 1.1rem;
-    border: none; background-color: transparent; margin: 0 auto;
+    border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -261,8 +261,9 @@ body:not(.edit-mode) {
 }
 
 .live-button-container {
-    display: flex; justify-content: flex-end;
-    justify-content: center; padding-top: 10px; padding-bottom:5px;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 5px 0;
     margin-top: 0;
 }
 
@@ -289,11 +290,14 @@ body:not(.edit-mode) {
 }
 
 .best-times.edit-mode {
-    align-self: center; width: 100%; max-width: 600px; margin-top: 0;
+    align-self: center;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 0px;
 }
 
 .best-times h3 {
-    text-align: center; 
+    text-align: center;
     margin-bottom: 10px;
     font-size: 1.5rem;
     color: #333;
@@ -307,15 +311,14 @@ body:not(.edit-mode) {
     background-color: rgba(255, 255, 255, 1);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    padding: 0;
+    padding: 13px 20px 10px 20px;
     margin-bottom: 8px;
-    display: flex; justify-content: flex-end;
+    display: flex;
     justify-content: space-between;
-    align-items: flex-start; 
+    align-items: flex-start;
     font-size: 1.1rem;
     font-family: 'Courier New', monospace;
     transition: all 0.3s ease;
-    padding:13px 20px 10px 20px;
 }
 
 .time-item.clickable {
@@ -329,33 +332,30 @@ body:not(.edit-mode) {
 
 
 .time-info {
-    display: flex; justify-content: flex-end;
-    align-items: flex-start; 
+    display: flex;
+    align-items: flex-start;
     gap: 8px;
-   
 }
 
 .time-right {
-    display: flex; justify-content: flex-end;
-    align-items: flex-start; 
+    display: flex;
+    align-items: flex-start;
     gap: 10px;
 }
 
 .time-ago {
     font-size: 0.9rem;
-    /* color: #666; */
     font-style: italic;
     padding-top: 3px;
 }
 
 .delete-btn {
     background: none;
-    border: none; background-color: transparent; margin: 0 auto;
+    border: none;
     color: #f44336;
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
-    
     border-radius: 4px;
     transition: all 0.3s ease;
     line-height: 1;
@@ -375,7 +375,6 @@ body:not(.edit-mode) {
 
 .rank {
     font-weight: bold;
-    /* color: #666; */
 }
 
 .time-value {
@@ -384,11 +383,10 @@ body:not(.edit-mode) {
 }
 
 .no-times {
-    text-align: center; 
-    /* color: #666; */
-    font-weight:bold;
+    text-align: center;
+    font-weight: bold;
     font-style: italic;
-    padding: 20px;  
+    padding: 20px;
 }
 
 .keyboard-shortcuts {
@@ -400,9 +398,10 @@ body:not(.edit-mode) {
 }
 
 .shortcut-item {
-    display: flex; justify-content: flex-end;
+    display: flex;
     justify-content: space-between;
-    align-items: flex-start; padding-top: 20px;
+    align-items: flex-start;
+    padding-top: 20px;
     margin-bottom: 8px;
     font-size: 0.9rem;
 }
@@ -420,13 +419,11 @@ body:not(.edit-mode) {
     color: #333;
 }
 
-.shortcut-desc {
-    /* color: #666; */
-}
 
 .clear-all-container {
-    display: flex; justify-content: flex-end;
-    justify-content: center; padding-top: 5px; padding-bottom:10px;
+    display: flex;
+    justify-content: center;
+    padding: 5px 0 10px 0;
     margin-top: 0;
 }
 
@@ -437,7 +434,7 @@ body:not(.edit-mode) {
     font-weight: bold;
     padding: 12px 24px;
     border-radius: 8px;
-    border: none; background-color: transparent; margin: 0 auto;
+    border: none;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -448,13 +445,12 @@ body:not(.edit-mode) {
 }
 
 .source-link {
-    text-align: center; 
+    text-align: center;
     margin-top: 0;
-    padding: 10px; border: none; background-color: transparent; margin: 0 auto;
+    padding: 10px;
 }
 
 .source-link a {
-    /* color: #666; */
     text-decoration: none;
     font-size: 0.8rem;
     font-style: italic;
