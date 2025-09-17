@@ -112,7 +112,7 @@ body:not(.edit-mode) {
         width: 100%;
         max-width: 320px;
         margin: 20px 0 0 0;
-        padding: 15px;
+        padding:  15px;
     }
     
     body.edit-mode .clear-all-container {
@@ -392,8 +392,8 @@ body:not(.edit-mode) {
 }
 
 .keyboard-shortcuts {
-    margin-top: 0;
-    padding: 15px;
+    margin-top: 5px;
+    padding:0 15px 15px 15px;
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 8px;
     border: 1px solid rgba(0, 0, 0, 0.1);

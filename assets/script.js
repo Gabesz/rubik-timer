@@ -111,7 +111,7 @@ createApp({
             this.saveBestTimes();
         },
         clearAllTimes() {
-            if (confirm('Biztosan törölni szeretnéd az összes mentett időt?')) {
+            if (confirm('Are you sure you want to delete all saved times?')) {
                 this.bestTimes = [];
                 this.saveBestTimes();
             }
