@@ -109,7 +109,7 @@ Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatr
 - **Legjobb eredmény**: Zöld kiemelés
 - **Gombok**: Zöld (Start), Piros (Stop), Narancs (Reset), Piros (Leave edit mode)
 
-## Browszer Támogatás
+## Böngésző Támogatás
 
 - Chrome, Firefox, Safari, Edge (modern böngészők)
 - JavaScript engedélyezve kell legyen
