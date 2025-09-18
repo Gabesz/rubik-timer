@@ -22,6 +22,7 @@ Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatr
 ### 🕐 Stopper Óra
 - **Start/Stop/Reset** gombok
 - **Billentyűzet rövidítések**: Alt+S (Start/Stop), Alt+X (Reset & Save)
+- **🎤 Hangvezérlés**: "start/indít/kezd", "stop/megáll/állj", "reset/vissza/nulla", "összes töröl/clear"
 - **Század másodperc pontosság** (MM:SS.CC formátum)
 - **Nagy, jól olvasható kijelzés** (5.2rem betűméret)
 
@@ -55,10 +56,28 @@ Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatr
 - **Alt + S** - Start/Stop váltás
 - **Alt + X** - Reset & Save
 
+## 🎤 Hangvezérlés
+
+### Támogatott Parancsok:
+- **Indítás**: "start", "indít", "kezd"
+- **Megállítás**: "stop", "megáll", "állj"  
+- **Reset**: "reset", "vissza", "nulla"
+- **Összes törlése**: "összes töröl", "clear", "töröl minden"
+
+### Használat:
+- **Edit módban** aktív (`?edit=1`)
+- **Mikrofon engedély** szükséges
+- **Magyar és angol** parancsok egyaránt támogatottak
+- **Gyors reagálás** - köztes eredményeket is figyeli
+- **Console logok** - minden parancs látható a böngésző konzoljában
+
 ## Fájlok
 
 - `index.html` - Fő alkalmazás
-- `vue.global.prod.js` - Vue.js 3 production könyvtár
+- `assets/` - Mappa a CSS, JS és Vue.js fájlokkal
+  - `style.css` - Stílusok
+  - `script.js` - Vue.js alkalmazás logika
+  - `vue.global.prod.js` - Vue.js 3 production könyvtár
 - `favicon.svg` - Stopper óra ikon
 - `README.md` - Dokumentáció
 
@@ -88,6 +107,7 @@ Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatr
 ## Technikai Részletek
 
 - **Vue.js 3** - Modern JavaScript framework (production build)
+- **Web Speech API** - Hangfelismerés (Chrome, Edge, Safari)
 - **localStorage** - Adatok tárolása
 - **CSS3** - Modern stílusok és animációk
 - **Responsive design** - FullHD kijelzőre optimalizálva, mobilon is működik
@@ -101,6 +121,7 @@ Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatr
 3. **Törlés**: Normál módban sorra kattintás, edit módban X gomb
 4. **Mód váltás**: Stopper órára kattintás vagy "Leave edit mode" gomb
 5. **Elrendezés**: Normál módban jobb oldali, edit módban teljes képernyős középre igazított
+6. **Hangvezérlés**: Edit módban mikrofon engedély után beszélheted a parancsokat
 
 ## Színek
 
@@ -111,6 +132,8 @@ Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatr
 
 ## Böngésző Támogatás
 
-- Chrome, Firefox, Safari, Edge (modern böngészők)
-- JavaScript engedélyezve kell legyen
-- localStorage támogatás szükséges
+- **Chrome, Edge, Safari** - Teljes támogatás (hangvezérlés is)
+- **Firefox** - Alapvető funkciók (hangvezérlés nem támogatott)
+- **JavaScript engedélyezve** kell legyen
+- **localStorage támogatás** szükséges
+- **Mikrofon engedély** szükséges a hangvezérléshez

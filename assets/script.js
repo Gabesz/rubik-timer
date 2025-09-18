@@ -8,7 +8,9 @@ createApp({
             isRunning: false,
             intervalId: null,
             bestTimes: [],
-            isEditMode: false
+            isEditMode: false,
+            speechRecognition: null,
+            isListening: false
         }
     },
     computed: {
@@ -24,6 +26,7 @@ createApp({
         this.loadBestTimes();
         this.setupKeyboardShortcuts();
         this.setupTimeUpdater();
+        this.setupSpeechRecognition();
     },
     methods: {
         start() {
@@ -110,8 +113,9 @@ createApp({
             this.bestTimes.splice(index, 1);
             this.saveBestTimes();
         },
-        clearAllTimes() {
-            if (confirm('Are you sure you want to delete all saved times?')) {
+        clearAllTimes(byVoice = false) {
+            // Ha hangparancsról van szó, ne kérjen megerősítést
+            if (byVoice || confirm('Are you sure you want to delete all saved times?')) {
                 this.bestTimes = [];
                 this.saveBestTimes();
             }
@@ -166,6 +170,102 @@ createApp({
             const url = new URL(window.location);
             url.searchParams.delete('edit');
             window.location.href = url.toString();
+        },
+        setupSpeechRecognition() {
+            // Ellenőrizzük, hogy a böngésző támogatja-e a Speech Recognition API-t
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                console.log('❌ Speech Recognition API not supported in this browser');
+                return;
+            }
+
+            // Speech Recognition inicializálása
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            this.speechRecognition = new SpeechRecognition();
+            
+            // Beállítások - optimalizálva a gyorsabb reagálásért
+            this.speechRecognition.continuous = true;
+            this.speechRecognition.interimResults = true; // Köztes eredményeket is figyeljük
+            this.speechRecognition.lang = 'hu-HU'; // Magyar nyelv
+            this.speechRecognition.maxAlternatives = 1; // Csak 1 alternatíva
+            
+            // Eseménykezelők
+            this.speechRecognition.onstart = () => {
+                console.log('🎤 Speech recognition started');
+                this.isListening = true;
+            };
+
+            this.speechRecognition.onresult = (event) => {
+                // Köztes és végső eredményeket is figyeljük a gyorsabb reagálásért
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const result = event.results[i];
+                    const command = result[0].transcript.toLowerCase().trim();
+                    
+                    // Ha köztes eredmény, de már tartalmazza a parancsot, azonnal reagálunk
+                    if (result.isFinal || command.includes('start') || command.includes('stop') || command.includes('reset') || 
+                        command.includes('indít') || command.includes('kezd') || command.includes('megáll') || 
+                        command.includes('állj') || command.includes('vissza') || command.includes('nulla') ||
+                        command.includes('összes') || command.includes('clear') || command.includes('töröl')) {
+                        console.log('🎤 Voice command detected:', command, result.isFinal ? '(final)' : '(interim)');
+                        
+                        // Parancs feldolgozása - magyar és angol parancsok
+                        if (command.includes('start') || command.includes('indít') || command.includes('kezd')) {
+                            console.log('🎯 Voice command: START/INDÍT/KEZD');
+                            if (!this.isRunning) {
+                                this.start();
+                            }
+                            break; // Megállítjuk a további feldolgozást
+                        } else if (command.includes('stop') || command.includes('megáll') || command.includes('állj')) {
+                            console.log('🎯 Voice command: STOP/MEGÁLL/ÁLLJ');
+                            if (this.isRunning) {
+                                this.stop();
+                            }
+                            break;
+                        } else if (command.includes('reset') || command.includes('vissza') || command.includes('nulla')) {
+                            console.log('🎯 Voice command: RESET/VISSZA/NULLA');
+                            this.reset();
+                            break;
+                        } else if (command.includes('összes') && command.includes('töröl') || 
+                                   command.includes('clear') || command.includes('töröl') && command.includes('minden')) {
+                            console.log('🎯 Voice command: ÖSSZES TÖRÖL/CLEAR');
+                            this.clearAllTimes(true); // true = hangparancs, ne kérjen megerősítést
+                            break;
+                        }
+                    }
+                }
+            };
+
+            this.speechRecognition.onerror = (event) => {
+                console.log('❌ Speech recognition error:', event.error);
+                this.isListening = false;
+            };
+
+            this.speechRecognition.onend = () => {
+                console.log('🎤 Speech recognition ended');
+                this.isListening = false;
+                // Automatikusan újraindítjuk a felismerést - gyorsabb újraindítás
+                if (this.isEditMode) {
+                    setTimeout(() => {
+                        this.startListening();
+                    }, 50); // Csökkentett késleltetés 100ms-ről 50ms-re
+                }
+            };
+
+            // Hangfelismerés indítása
+            this.startListening();
+        },
+        startListening() {
+            if (this.speechRecognition && !this.isListening) {
+                try {
+                    this.speechRecognition.start();
+                } catch (error) {
+                    console.log('❌ Failed to start speech recognition:', error);
+                }
+            }
+        },
+        stopListening() {
+            if (this.speechRecognition && this.isListening) {
+                this.speechRecognition.stop();
+            }
         }
     }
 }).mount('#app');
