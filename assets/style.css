@@ -120,6 +120,13 @@ body:not(.edit-mode) {
         margin: 20px 0 0 0;
         padding:  15px;
     }
+
+    body.edit-mode .voice-commands {
+        width: 100%;
+        max-width: 320px;
+        margin: 15px 0 0 0;
+        padding: 15px;
+    }
     
     body.edit-mode .clear-all-container {
         width: 100%;
@@ -176,6 +183,11 @@ body:not(.edit-mode) {
     }
     
     body.edit-mode .keyboard-shortcuts {
+        max-width: 280px;
+        padding: 12px;
+    }
+
+    body.edit-mode .voice-commands {
         max-width: 280px;
         padding: 12px;
     }
@@ -397,6 +409,14 @@ body:not(.edit-mode) {
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.voice-commands {
+    margin-top: 10px;
+    padding: 0 15px 15px 15px;
+    background-color: rgba(76, 175, 80, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
 .shortcut-item {
     display: flex;
     justify-content: space-between;
@@ -406,7 +426,20 @@ body:not(.edit-mode) {
     font-size: 0.9rem;
 }
 
+.voice-command-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 15px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
 .shortcut-item:last-child {
+    margin-bottom: 0;
+}
+
+.voice-command-item:last-child {
     margin-bottom: 0;
 }
 
@@ -417,6 +450,15 @@ body:not(.edit-mode) {
     font-family: 'Courier New', monospace;
     font-weight: bold;
     color: #333;
+}
+
+.voice-command-key {
+    background-color: rgba(76, 175, 80, 0.2);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #2e7d32;
 }
 
 

@@ -104,6 +104,24 @@
                             <span class="shortcut-desc">Reset & Save</span>
                         </div>
                     </div>
+                    <div v-if="isEditMode" class="voice-commands" :class="{ 'edit-mode': isEditMode }">
+                        <div class="voice-command-item">
+                            <span class="voice-command-key">🎤 "start" / "indít" / "kezd"</span>
+                            <span class="voice-command-desc">Start</span>
+                        </div>
+                        <div class="voice-command-item">
+                            <span class="voice-command-key">🎤 "stop" / "megáll" / "állj"</span>
+                            <span class="voice-command-desc">Stop</span>
+                        </div>
+                        <div class="voice-command-item">
+                            <span class="voice-command-key">🎤 "reset" / "vissza" / "nulla"</span>
+                            <span class="voice-command-desc">Reset & Save</span>
+                        </div>
+                        <div class="voice-command-item">
+                            <span class="voice-command-key">🎤 "összes töröl" / "clear"</span>
+                            <span class="voice-command-desc">Clear All</span>
+                        </div>
+                    </div>
                     <div v-if="isEditMode" class="source-link">
                         <a href="https://github.com/Gabesz/rubik-timer" target="_blank">@https://github.com/Gabesz/rubik-timer</a>
                     </div>
