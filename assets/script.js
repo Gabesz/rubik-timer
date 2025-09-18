@@ -10,7 +10,10 @@ createApp({
             bestTimes: [],
             isEditMode: false,
             speechRecognition: null,
-            isListening: false
+            isListening: false,
+            speechKeepAliveInterval: null,
+            speechRecognitionInitialized: false,
+            microphonePermissionGranted: false
         }
     },
     computed: {
@@ -158,6 +161,16 @@ createApp({
             } else {
                 document.body.classList.remove('edit-mode');
             }
+            
+            // Mindkét módban működjön a hangfelismerés
+            if (this.speechRecognition && !this.isMobileDevice()) {
+                console.log('🔄 Mode changed, ensuring speech recognition is active...');
+                this.startListening();
+                // Csak akkor indítsuk el a keep-alive-t, ha még nem fut
+                if (!this.speechKeepAliveInterval) {
+                    this.startSpeechKeepAlive();
+                }
+            }
         },
         switchToEditMode() {
             // URL frissítése edit módra
@@ -166,6 +179,8 @@ createApp({
             window.location.href = url.toString();
         },
         switchToLiveMode() {
+            // Keep-alive leállítása
+            this.stopSpeechKeepAlive();
             // URL frissítése normál módra (edit paraméter eltávolítása)
             const url = new URL(window.location);
             url.searchParams.delete('edit');
@@ -175,6 +190,19 @@ createApp({
             // Ellenőrizzük, hogy a böngésző támogatja-e a Speech Recognition API-t
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
                 console.log('❌ Speech Recognition API not supported in this browser');
+                return;
+            }
+
+            // Mobilon ne indítsuk el automatikusan a hangfelismerést
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            if (isMobile) {
+                console.log('📱 Mobile device detected - voice recognition disabled to prevent microphone issues');
+                return;
+            }
+
+            // Ha már van speechRecognition, ne hozzunk létre újat
+            if (this.speechRecognitionInitialized) {
+                console.log('🎤 Speech recognition already initialized');
                 return;
             }
 
@@ -192,6 +220,7 @@ createApp({
             this.speechRecognition.onstart = () => {
                 console.log('🎤 Speech recognition started');
                 this.isListening = true;
+                this.microphonePermissionGranted = true;
             };
 
             this.speechRecognition.onresult = (event) => {
@@ -237,34 +266,91 @@ createApp({
             this.speechRecognition.onerror = (event) => {
                 console.log('❌ Speech recognition error:', event.error);
                 this.isListening = false;
+                
+                // Ha "no-speech", "audio-capture", "network" vagy "not-allowed" hiba, próbáljuk újraindítani
+                if (event.error === 'no-speech' || event.error === 'audio-capture' || event.error === 'not-allowed' || event.error === 'network') {
+                    console.log('🔄 Attempting to restart speech recognition after error:', event.error);
+                    if (!this.isMobileDevice()) {
+                        setTimeout(() => {
+                            this.startListening();
+                        }, 2000); // 2 másodperc késleltetés network hiba után
+                    }
+                }
             };
 
             this.speechRecognition.onend = () => {
                 console.log('🎤 Speech recognition ended');
                 this.isListening = false;
-                // Automatikusan újraindítjuk a felismerést - gyorsabb újraindítás
-                if (this.isEditMode) {
+                // Automatikusan újraindítjuk a felismerést - mindkét módban
+                if (!this.isMobileDevice()) {
+                    console.log('🔄 Auto-restarting speech recognition in 100ms...');
                     setTimeout(() => {
                         this.startListening();
-                    }, 50); // Csökkentett késleltetés 100ms-ről 50ms-re
+                    }, 100); // Növelt késleltetés a stabilitásért
+                } else {
+                    console.log('❌ Not restarting - mobile device detected');
                 }
             };
 
-            // Hangfelismerés indítása
+            // Jelöljük meg, hogy inicializálva van
+            this.speechRecognitionInitialized = true;
+            
+            // Kérjük meg az engedélyt betöltéskor
+            console.log('🎤 Requesting microphone permission on page load...');
+            
+            // Hangfelismerés indítása mindkét módban
             this.startListening();
+            this.startSpeechKeepAlive();
         },
         startListening() {
             if (this.speechRecognition && !this.isListening) {
                 try {
+                    console.log('🎤 Starting speech recognition...');
                     this.speechRecognition.start();
                 } catch (error) {
                     console.log('❌ Failed to start speech recognition:', error);
+                    // Ha InvalidStateError, ne próbáljuk újra
+                    if (error.name === 'InvalidStateError') {
+                        console.log('🔄 Speech recognition already started, skipping retry');
+                        return;
+                    }
+                    // Ha más hiba van, próbáljuk meg újra 2 másodperc után
+                    setTimeout(() => {
+                        if (this.speechRecognition && !this.isListening) {
+                            try {
+                                console.log('🔄 Retrying speech recognition start...');
+                                this.speechRecognition.start();
+                            } catch (retryError) {
+                                console.log('❌ Retry failed:', retryError);
+                            }
+                        }
+                    }, 2000);
                 }
             }
         },
         stopListening() {
             if (this.speechRecognition && this.isListening) {
                 this.speechRecognition.stop();
+            }
+        },
+        isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        },
+        startSpeechKeepAlive() {
+            // 10 másodpercenként ellenőrizzük, hogy fut-e a hangfelismerés
+            this.speechKeepAliveInterval = setInterval(() => {
+                if (!this.isMobileDevice() && this.speechRecognition) {
+                    if (!this.isListening) {
+                        console.log('🔄 Speech recognition not active, restarting...');
+                        this.startListening();
+                    }
+                }
+            }, 10000); // 10 másodperc - gyakoribb ellenőrzés
+        },
+        stopSpeechKeepAlive() {
+            if (this.speechKeepAliveInterval) {
+                clearInterval(this.speechKeepAliveInterval);
+                this.speechKeepAliveInterval = null;
             }
         }
     }

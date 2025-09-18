@@ -82,7 +82,7 @@
                             </div>
                         </li>
                     </ul>
-                    <div v-else class="no-times">
+                    <div v-else class="no-times" :class="{ 'edit-mode': isEditMode }">
                         Még nincsenek rögzített idők
                     </div>
                     <div v-if="isEditMode && bestTimes.length > 0" class="clear-all-container" :class="{ 'edit-mode': isEditMode }">
@@ -105,6 +105,18 @@
                         </div>
                     </div>
                     <div v-if="isEditMode" class="voice-commands" :class="{ 'edit-mode': isEditMode }">
+                        <div v-if="!isListening && speechRecognition" class="voice-toggle-container">
+                            <button 
+                                @click="startListening" 
+                                class="btn btn-voice-toggle"
+                                :class="{ 'edit-mode': isEditMode }"
+                            >
+                                🎤 Enable Voice Commands
+                            </button>
+                        </div>
+                        <div v-if="isListening" class="voice-status">
+                            <span class="voice-status-text">🎤 Voice commands active</span>
+                        </div>
                         <div class="voice-command-item">
                             <span class="voice-command-key">🎤 "start" / "indít" / "kezd"</span>
                             <span class="voice-command-desc">Start</span>
