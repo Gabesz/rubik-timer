@@ -120,14 +120,19 @@ createApp({
             document.addEventListener('keydown', (event) => {
                 if (event.altKey && event.key === 's') {
                     event.preventDefault();
+                    console.log('🎯 Keyboard shortcut activated: Alt + S (Start/Stop)');
                     if (this.isRunning) {
+                        console.log('⏹️ Stopping stopwatch');
                         this.stop();
                     } else {
+                        console.log('▶️ Starting stopwatch');
                         this.start();
                     }
                 }
                 if (event.altKey && event.key === 'x') {
                     event.preventDefault();
+                    console.log('🎯 Keyboard shortcut activated: Alt + X (Reset & Save)');
+                    console.log('🔄 Resetting and saving time');
                     this.reset();
                 }
             });
