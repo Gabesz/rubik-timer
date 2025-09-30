@@ -20,7 +20,7 @@
                         :class="{ 'clickable': !isEditMode, 'edit-mode': isEditMode }"
                         @click="!isEditMode ? switchToEditMode() : null"
                     >{{ formattedTime }}</div>
-                    <div v-if="isEditMode" class="controls" :class="{ 'edit-mode': isEditMode }">
+                    <div class="controls" :class="{ 'edit-mode': isEditMode }">
                         <button 
                             v-if="!isRunning" 
                             @click="start" 
@@ -81,11 +81,20 @@
                                 </button>
                             </div>
                         </li>
+                        <li class="time-item">
+                            <div class="time-info">
+                                <span class="rank">AVG</span>
+                                <span class="time-value">{{ formatTime(averageTimeMs) }}</span>
+                            </div>
+                            <div class="time-right">
+                                <span class="time-ago">&nbsp;</span>
+                            </div>
+                        </li>
                     </ul>
                     <div v-else class="no-times" :class="{ 'edit-mode': isEditMode }">
                         Még nincsenek rögzített idők
                     </div>
-                    <div v-if="isEditMode && bestTimes.length > 0" class="clear-all-container" :class="{ 'edit-mode': isEditMode }">
+                    <div v-if="isEditMode || bestTimes.length > 0" class="clear-all-container" :class="{ 'edit-mode': isEditMode }">
                         <button 
                             @click="clearAllTimes" 
                             class="btn btn-clear-all"
@@ -96,6 +105,10 @@
                     </div>
                     <div v-if="isEditMode" class="keyboard-shortcuts" :class="{ 'edit-mode': isEditMode }">
                         <div class="shortcut-item">
+                            <span class="shortcut-key">Space</span>
+                            <span class="shortcut-desc">Start/Stop</span>
+                        </div>
+                        <div class="shortcut-item">
                             <span class="shortcut-key">Alt + S</span>
                             <span class="shortcut-desc">Start/Stop</span>
                         </div>
@@ -104,7 +117,7 @@
                             <span class="shortcut-desc">Reset & Save</span>
                         </div>
                     </div>
-                    <div v-if="isEditMode" class="voice-commands" :class="{ 'edit-mode': isEditMode }">
+                    <div v-if="isEditMode && voiceEnabled" class="voice-commands" :class="{ 'edit-mode': isEditMode }">
                         <div v-if="!isListening && speechRecognition" class="voice-toggle-container">
                             <button 
                                 @click="startListening" 

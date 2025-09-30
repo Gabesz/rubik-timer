@@ -8,12 +8,13 @@ createApp({
             isRunning: false,
             intervalId: null,
             bestTimes: [],
-            isEditMode: false,
+			isEditMode: false,
             speechRecognition: null,
             isListening: false,
             speechKeepAliveInterval: null,
             speechRecognitionInitialized: false,
-            microphonePermissionGranted: false
+			microphonePermissionGranted: false,
+			voiceEnabled: false
         }
     },
     computed: {
@@ -22,14 +23,23 @@ createApp({
             const seconds = Math.floor((this.elapsedTime % 60000) / 1000);
             const centiseconds = Math.floor((this.elapsedTime % 1000) / 10);
             return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${centiseconds.toString().padStart(2, '0')}`;
+        },
+        averageTimeMs() {
+            if (!this.bestTimes || this.bestTimes.length === 0) {
+                return 0;
+            }
+            const sumMs = this.bestTimes.reduce((acc, item) => acc + (item.time || 0), 0);
+            return Math.floor(sumMs / this.bestTimes.length);
         }
     },
     mounted() {
         this.checkEditMode();
         this.loadBestTimes();
         this.setupKeyboardShortcuts();
-        this.setupTimeUpdater();
-        this.setupSpeechRecognition();
+		this.setupTimeUpdater();
+		if (this.voiceEnabled) {
+			this.setupSpeechRecognition();
+		}
     },
     methods: {
         start() {
@@ -125,6 +135,19 @@ createApp({
         },
         setupKeyboardShortcuts() {
             document.addEventListener('keydown', (event) => {
+                // Spacebar for start/stop
+                if (event.code === 'Space') {
+                    event.preventDefault();
+                    console.log('🎯 Keyboard shortcut activated: Spacebar (Start/Stop)');
+                    if (this.isRunning) {
+                        console.log('⏹️ Stopping stopwatch');
+                        this.stop();
+                    } else {
+                        console.log('▶️ Starting stopwatch');
+                        this.start();
+                    }
+                }
+                // Alt + S for start/stop (existing functionality)
                 if (event.altKey && event.key === 's') {
                     event.preventDefault();
                     console.log('🎯 Keyboard shortcut activated: Alt + S (Start/Stop)');
@@ -136,6 +159,7 @@ createApp({
                         this.start();
                     }
                 }
+                // Alt + X for reset (existing functionality)
                 if (event.altKey && event.key === 'x') {
                     event.preventDefault();
                     console.log('🎯 Keyboard shortcut activated: Alt + X (Reset & Save)');
@@ -162,8 +186,8 @@ createApp({
                 document.body.classList.remove('edit-mode');
             }
             
-            // Mindkét módban működjön a hangfelismerés
-            if (this.speechRecognition && !this.isMobileDevice()) {
+			// Voice recognition is disabled unless voiceEnabled is true
+			if (this.voiceEnabled && this.speechRecognition && !this.isMobileDevice()) {
                 console.log('🔄 Mode changed, ensuring speech recognition is active...');
                 this.startListening();
                 // Csak akkor indítsuk el a keep-alive-t, ha még nem fut
