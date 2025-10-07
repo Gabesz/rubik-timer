@@ -1,139 +1,127 @@
-# Stopper Óra
+# Stopwatch Timer
 
-Egy egyszerű, de funkcionális stopper óra alkalmazás Vue.js-sel, ami rögzíti a legjobb időket. **Kifejezetten live stream tartalomhoz készült**, ahol a nézők számára szórakoztató és interaktív időmérési eszköz.
+A simple yet functional stopwatch application built with Vue.js that records the best times. **Specifically designed for live streaming content**, providing an entertaining and interactive timing tool for viewers.
 
 ## 🚀 Demo
 
-**Élő demo**: [https://gabesz.github.io/rubik-timer/?edit=1](https://gabesz.github.io/rubik-timer/?edit=1)
+**Live demo**: [https://gabesz.github.io/rubik-timer/?edit=1](https://gabesz.github.io/rubik-timer/?edit=1)
 
-## 🎥 Live Stream Használat
+## 🎥 Live Stream Usage
 
-Ez az alkalmazás **OBS Studio** és más stream szoftverekkel való használatra lett optimalizálva. A jobb oldali elrendezés és a zöld háttér (normál módban) lehetővé teszi, hogy könnyedén integráld a stream overlay-edbe.
+This application is optimized for use with **OBS Studio** and other streaming software. The right-side layout and green background (in normal mode) allow you to easily integrate it into your stream overlay.
 
-### Ajánlott Stream Beállítások:
-- **Forrás típus**: Browser Source
-- **URL**: `index.html` (normál mód) vagy `index.html?edit=1` (szerkesztési mód)
-- **Pozíció**: Jobb oldali terület
-- **Méret**: FullHD kijelző jobb fele
-- **Interakció**: Edit módban teljes funkcionalitás, normál módban csak megjelenítés
+### Recommended Stream Settings:
+- **Source type**: Browser Source
+- **URL**: `index.html` (normal mode) or `index.html?edit=1` (edit mode)
+- **Position**: Right side area
+- **Size**: Right half of FullHD display
+- **Interaction**: Full functionality in edit mode, display only in normal mode
 
-## Funkciók
+## Features
 
-### 🕐 Stopper Óra
-- **Start/Stop/Reset** gombok
-- **Billentyűzet rövidítések**: Alt+S (Start/Stop), Alt+X (Reset & Save)
-- **🎤 Hangvezérlés**: "start/indít/kezd", "stop/megáll/állj", "reset/vissza/nulla", "összes töröl/clear"
-- **Század másodperc pontosság** (MM:SS.CC formátum)
-- **Nagy, jól olvasható kijelzés** (5.2rem betűméret)
+### 🕐 Stopwatch Timer
+- **Start/Stop/Reset** buttons (available in both modes)
+- **Keyboard shortcuts**: Spacebar (Start/Stop), Alt+S (Start/Stop), Alt+X (Reset & Save)
+- **Centisecond precision** (MM:SS.CC format)
+- **Large, readable display** (5.2rem font size)
+- **Bootstrap styled buttons** (Blue Start, Red Stop, Orange Reset)
 
-### 📊 Eredmények Kezelése
-- **Legjobb 10 idő** automatikus tárolása
-- **Időbélyeg** minden eredménynél (mikor készült)
-- **Percenkénti frissítés** az időbélyegeknél
-- **localStorage** tárolás (adatok megmaradnak)
+### 📊 Results Management
+- **Top 10 times** automatically stored
+- **Average time (AVG)** calculated and displayed
+- **Timestamp** for each result (when created)
+- **Minute-by-minute updates** for timestamps
+- **localStorage** storage (data persists)
 
-### 🎨 Két Mód
-- **Normál mód** (`index.html`) - Zöld háttér, jobb oldali elrendezés, tiszta megjelenés
-- **Edit mód** (`index.html?edit=1`) - Transparent háttér, teljes képernyős középre igazított elrendezés, 2x nagyobb stopper óra, responsive design mobilon
+### 🎨 Two Modes
+- **Normal mode** (`index.html`) - Green background, right-side layout, clean appearance, full controls
+- **Edit mode** (`index.html?edit=1`) - Transparent background, full-screen centered layout, 2x larger stopwatch, responsive design on mobile
 
-## Használat
+## Usage
 
-### Normál Mód
-- Csak az eredmények megtekintése
-- Sorra kattintás → törlés (megerősítés nélkül)
-- Stopper órára kattintás → edit módba váltás
+### Normal Mode
+- Start/Stop/Reset buttons available
+- View results with average time
+- Click on row → delete (without confirmation)
+- Click on stopwatch → switch to edit mode
+- Clear All button visible
 
-### Edit Mód
-- Teljes stopper funkcionalitás
-- X gombok a sorok végén (megerősítéssel)
-- Billentyűzet kombinációk megjelenítése
-- "Leave edit mode" gomb
-- "Összes törlése" gomb (megerősítéssel)
-- Responsive design mobilon (függőleges gombok, kisebb stopper óra)
+### Edit Mode
+- Full stopwatch functionality
+- Keyboard shortcuts display (Spacebar, Alt+S, Alt+X)
+- X buttons at end of rows (with confirmation)
+- "Leave Edit Mode" button
+- "Clear All" button (with confirmation)
+- Responsive design on mobile (vertical buttons, smaller stopwatch)
 
-## Billentyűzet Rövidítések
+## Keyboard Shortcuts
 
-- **Alt + S** - Start/Stop váltás
+- **Spacebar** - Start/Stop toggle
+- **Alt + S** - Start/Stop toggle
 - **Alt + X** - Reset & Save
 
-## 🎤 Hangvezérlés
+## Files
 
-### Támogatott Parancsok:
-- **Indítás**: "start", "indít", "kezd"
-- **Megállítás**: "stop", "megáll", "állj"  
-- **Reset**: "reset", "vissza", "nulla"
-- **Összes törlése**: "összes töröl", "clear", "töröl minden"
+- `index.html` - Main application
+- `assets/` - Folder with CSS, JS and Vue.js files
+  - `style.css` - Styles
+  - `script.js` - Vue.js application logic
+  - `vue.global.prod.js` - Vue.js 3 production library
+- `favicon.svg` - Stopwatch icon
+- `.gitignore` - Git ignore file (excludes node_modules)
+- `README.md` - Documentation
 
-### Használat:
-- **Edit módban** aktív (`?edit=1`)
-- **Mikrofon engedély** szükséges
-- **Magyar és angol** parancsok egyaránt támogatottak
-- **Gyors reagálás** - köztes eredményeket is figyeli
-- **Console logok** - minden parancs látható a böngésző konzoljában
+## Installation
 
-## Fájlok
+1. Download the files
+2. Open `index.html` in browser
+3. Done! Works offline
 
-- `index.html` - Fő alkalmazás
-- `assets/` - Mappa a CSS, JS és Vue.js fájlokkal
-  - `style.css` - Stílusok
-  - `script.js` - Vue.js alkalmazás logika
-  - `vue.global.prod.js` - Vue.js 3 production könyvtár
-- `favicon.svg` - Stopper óra ikon
-- `README.md` - Dokumentáció
+## 🎬 OBS Studio Integration
 
-## Telepítés
-
-1. Töltsd le a fájlokat
-2. Nyisd meg az `index.html`-t böngészőben
-3. Kész! Offline működik
-
-## 🎬 OBS Studio Integráció
-
-### Browser Source Beállítása:
+### Browser Source Setup:
 1. **OBS Studio** → Add Source → Browser Source
-2. **URL**: Add meg a fájl teljes elérési útját (pl. `file:///C:/path/to/index.html`)
-3. **Width**: 960px (FullHD jobb fele)
+2. **URL**: Enter the full file path (e.g. `file:///C:/path/to/index.html`)
+3. **Width**: 960px (right half of FullHD)
 4. **Height**: 1080px
-5. **Interact**: ✅ (ha szerkeszteni szeretnéd)
+5. **Interact**: ✅ (if you want to edit)
 
-### Stream Overlay Optimalizáció:
-- **Normál mód** (`index.html`) - Nézőknek látható, zöld háttér, jobb oldali elrendezés
-- **Edit mód** (`index.html?edit=1`) - Szerkesztéshez, transparent háttér, teljes képernyős középre igazított
-- **Jobb oldali pozíció** - Nem takarja a fő tartalmat normál módban
-- **Nagy betűk** - Jól látható stream minőségben (edit módban 2x nagyobb)
-- **Teljes képernyős edit** - Edit módban minden középen, ideális szerkesztéshez
-- **Responsive design** - Edit módban mobilon is tökéletesen működik
+### Stream Overlay Optimization:
+- **Normal mode** (`index.html`) - Visible to viewers, green background, right-side layout
+- **Edit mode** (`index.html?edit=1`) - For editing, transparent background, full-screen centered
+- **Right-side position** - Doesn't cover main content in normal mode
+- **Large text** - Clearly visible in stream quality (2x larger in edit mode)
+- **Full-screen edit** - Everything centered in edit mode, ideal for editing
+- **Responsive design** - Works perfectly on mobile in edit mode
 
-## Technikai Részletek
+## Technical Details
 
 - **Vue.js 3** - Modern JavaScript framework (production build)
-- **Web Speech API** - Hangfelismerés (Chrome, Edge, Safari)
-- **localStorage** - Adatok tárolása
-- **CSS3** - Modern stílusok és animációk
-- **Responsive design** - FullHD kijelzőre optimalizálva, mobilon is működik
-- **SVG favicon** - Stopper óra ikon
-- **Media queries** - Tablet és mobil optimalizáció
+- **Bootstrap 5** - For styling and responsive design
+- **localStorage** - Data storage
+- **CSS3** - Modern styles and animations
+- **Responsive design** - Optimized for FullHD display, works on mobile too
+- **SVG favicon** - Stopwatch icon
+- **Media queries** - Tablet and mobile optimization
 
-## Működés
+## How It Works
 
-1. **Idő mérése**: Start → Stop → Reset & Save
-2. **Eredmények**: Automatikusan rangsorolva (legjobb felül)
-3. **Törlés**: Normál módban sorra kattintás, edit módban X gomb
-4. **Mód váltás**: Stopper órára kattintás vagy "Leave edit mode" gomb
-5. **Elrendezés**: Normál módban jobb oldali, edit módban teljes képernyős középre igazított
-6. **Hangvezérlés**: Edit módban mikrofon engedély után beszélheted a parancsokat
+1. **Time measurement**: Start → Stop → Reset & Save
+2. **Results**: Automatically ranked (best on top) with average time
+3. **Deletion**: Click on row in normal mode, X button in edit mode
+4. **Mode switching**: Click on stopwatch or "Leave Edit Mode" button
+5. **Layout**: Right-side in normal mode, full-screen centered in edit mode
+6. **Keyboard shortcuts**: Spacebar for quick start/stop
 
-## Színek
+## Colors
 
-- **Normál mód**: Zöld háttér (#00FF00)
-- **Edit mód**: Transparent háttér
-- **Legjobb eredmény**: Zöld kiemelés
-- **Gombok**: Zöld (Start), Piros (Stop), Narancs (Reset), Piros (Leave edit mode)
+- **Normal mode**: Green background (#00FF00)
+- **Edit mode**: Transparent background
+- **Best result**: Highlighted
+- **Buttons**: Blue (Start), Red (Stop), Orange (Reset), Red (Leave edit mode)
 
-## Böngésző Támogatás
+## Browser Support
 
-- **Chrome, Edge, Safari** - Teljes támogatás (hangvezérlés is)
-- **Firefox** - Alapvető funkciók (hangvezérlés nem támogatott)
-- **JavaScript engedélyezve** kell legyen
-- **localStorage támogatás** szükséges
-- **Mikrofon engedély** szükséges a hangvezérléshez
+- **Chrome, Edge, Safari, Firefox** - Full support
+- **JavaScript must be enabled**
+- **localStorage support required**
