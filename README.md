@@ -4,7 +4,7 @@ A simple yet functional stopwatch application built with Vue.js that records the
 
 ## 🚀 Demo
 
-**Live demo**: [https://gabesz.github.io/rubik-timer/?edit=1](https://gabesz.github.io/rubik-timer/?edit=1)
+**Live demo**: [https://gabesz.github.io/rubik-timer/](https://gabesz.github.io/rubik-timer/)
 
 ## 🎥 Live Stream Usage
 
