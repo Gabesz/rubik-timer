@@ -11,21 +11,16 @@
 </head>
 <body>
     <div id="app">
-        <div class="container" :class="{ 'edit-mode': isEditMode }">
-            <div class="left-side" :class="{ 'edit-mode': isEditMode }"></div>
-            <div class="right-side" :class="{ 'edit-mode': isEditMode }">
+        <div class="container">
+            <div class="left-side"></div>
+            <div class="right-side">
                 <div class="stopwatch-container">
-                    <div 
-                        class="time-display"
-                        :class="{ 'clickable': !isEditMode, 'edit-mode': isEditMode }"
-                        @click="!isEditMode ? switchToEditMode() : null"
-                    >{{ formattedTime }}</div>
-                    <div class="controls" :class="{ 'edit-mode': isEditMode }">
+                    <div class="time-display">{{ formattedTime }}</div>
+                    <div class="controls">
                         <button 
                             v-if="!isRunning" 
                             @click="start" 
                             class="btn btn-start"
-                            :class="{ 'edit-mode': isEditMode }"
                         >
                             Start
                         </button>
@@ -33,37 +28,25 @@
                             v-if="isRunning" 
                             @click="stop" 
                             class="btn btn-stop"
-                            :class="{ 'edit-mode': isEditMode }"
                         >
                             Stop
                         </button>
                         <button 
                             @click="reset" 
                             class="btn btn-reset"
-                            :class="{ 'edit-mode': isEditMode }"
                         >
                             Reset & Save
                         </button>
                     </div>
-                    <div v-if="isEditMode" class="live-button-container" :class="{ 'edit-mode': isEditMode }">
-                        <button 
-                            @click="switchToLiveMode" 
-                            class="btn btn-live"
-                            :class="{ 'edit-mode': isEditMode }"
-                        >
-                            Leave edit mode
-                        </button>
-                    </div>
                 </div>
                 
-                <div class="best-times" :class="{ 'edit-mode': isEditMode }">
+                <div class="best-times">
                     <ul class="time-list" v-if="bestTimes.length > 0">
                         <li 
                             v-for="(timeObj, index) in bestTimes" 
                             :key="index" 
-                            class="time-item"
-                            :class="{ 'clickable': !isEditMode, 'edit-mode': isEditMode }"
-                            @click="!isEditMode ? removeTimeSimple(index) : null"
+                            class="time-item clickable"
+                            @click="removeTimeSimple(index)"
                         >
                             <div class="time-info">
                                 <span class="rank">{{ index + 1 }}.</span>
@@ -71,14 +54,6 @@
                             </div>
                             <div class="time-right">
                                 <span class="time-ago">{{ formatTimeAgo(timeObj.timestamp) }}</span>
-                                <button 
-                                    v-if="isEditMode"
-                                    @click="removeTime(index)"
-                                    class="delete-btn"
-                                    title="Törlés"
-                                >
-                                    ×
-                                </button>
                             </div>
                         </li>
                         <li class="time-item">
@@ -91,64 +66,16 @@
                             </div>
                         </li>
                     </ul>
-                    <div v-else class="no-times" :class="{ 'edit-mode': isEditMode }">
+                    <div v-else class="no-times">
                         Még nincsenek rögzített idők
                     </div>
-                    <div v-if="isEditMode || bestTimes.length > 0" class="clear-all-container" :class="{ 'edit-mode': isEditMode }">
+                    <div v-if="bestTimes.length > 0" class="clear-all-container">
                         <button 
                             @click="clearAllTimes" 
                             class="btn btn-clear-all"
-                            :class="{ 'edit-mode': isEditMode }"
                         >
                             Clear All
                         </button>
-                    </div>
-                    <div v-if="isEditMode" class="keyboard-shortcuts" :class="{ 'edit-mode': isEditMode }">
-                        <div class="shortcut-item">
-                            <span class="shortcut-key">Space</span>
-                            <span class="shortcut-desc">Start/Stop</span>
-                        </div>
-                        <div class="shortcut-item">
-                            <span class="shortcut-key">Alt + S</span>
-                            <span class="shortcut-desc">Start/Stop</span>
-                        </div>
-                        <div class="shortcut-item">
-                            <span class="shortcut-key">Alt + X</span>
-                            <span class="shortcut-desc">Reset & Save</span>
-                        </div>
-                    </div>
-                    <div v-if="isEditMode && voiceEnabled" class="voice-commands" :class="{ 'edit-mode': isEditMode }">
-                        <div v-if="!isListening && speechRecognition" class="voice-toggle-container">
-                            <button 
-                                @click="startListening" 
-                                class="btn btn-voice-toggle"
-                                :class="{ 'edit-mode': isEditMode }"
-                            >
-                                🎤 Enable Voice Commands
-                            </button>
-                        </div>
-                        <div v-if="isListening" class="voice-status">
-                            <span class="voice-status-text">🎤 Voice commands active</span>
-                        </div>
-                        <div class="voice-command-item">
-                            <span class="voice-command-key">🎤 "start" / "indít" / "kezd"</span>
-                            <span class="voice-command-desc">Start</span>
-                        </div>
-                        <div class="voice-command-item">
-                            <span class="voice-command-key">🎤 "stop" / "megáll" / "állj"</span>
-                            <span class="voice-command-desc">Stop</span>
-                        </div>
-                        <div class="voice-command-item">
-                            <span class="voice-command-key">🎤 "reset" / "vissza" / "nulla"</span>
-                            <span class="voice-command-desc">Reset & Save</span>
-                        </div>
-                        <div class="voice-command-item">
-                            <span class="voice-command-key">🎤 "összes töröl" / "clear"</span>
-                            <span class="voice-command-desc">Clear All</span>
-                        </div>
-                    </div>
-                    <div v-if="isEditMode" class="source-link">
-                        <a href="https://github.com/Gabesz/rubik-timer" target="_blank">@https://github.com/Gabesz/rubik-timer</a>
                     </div>
                 </div>
             </div>

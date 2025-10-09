@@ -9,15 +9,6 @@ body {
     font-family: 'Arial', sans-serif;
     height: 100vh;
     overflow: hidden;
-}
-
-body.edit-mode {
-    overflow-x: hidden;
-    overflow-y: auto;
-    background: transparent;
-}
-
-body:not(.edit-mode) {
     background-color: #00FF00;
 }
 
@@ -27,19 +18,9 @@ body:not(.edit-mode) {
     height: 100vh;
 }
 
-.container.edit-mode {
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 20px;
-}
-
 .left-side {
     width: 450px;
     background: transparent;
-}
-
-.left-side.edit-mode {
-    display: none;
 }
 
 .right-side {
@@ -50,156 +31,6 @@ body:not(.edit-mode) {
     align-items: flex-end;
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.9);
-}
-
-.right-side.edit-mode {
-    width: 100%;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 10px;
-    border: none;
-    background-color: transparent;
-    margin: 0 auto;
-}
-
-/* Edit mód responsive design */
-@media (max-width: 768px) {
-    body.edit-mode .right-side {
-        padding: 10px; border: none; background-color: transparent; margin: 0 auto;
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    body.edit-mode .time-display {
-        font-size: 5rem !important;
-        margin-bottom: 10px;
-    }
-    
-    body.edit-mode .controls {
-        flex-direction: column !important;
-        gap: 10px;
-        width: 100%;
-        max-width: 280px;
-        margin: 0 auto 20px auto;
-    }
-    
-    body.edit-mode .btn {
-        width: 100% !important;
-        min-width: auto;
-        padding: 15px 20px;
-        font-size: 1.2rem;
-    }
-    
-    body.edit-mode .live-button-container {
-        width: 100%;
-        max-width: 280px;
-        margin: 0 auto 20px auto;
-    }
-    
-    body.edit-mode .btn-live {
-        width: 100%;
-        padding: 15px 20px;
-        font-size: 1.2rem;
-    }
-    
-    body.edit-mode .best-times {
-        width: 100%;
-        max-width: 320px;
-        padding: 0;
-    }
-    
-    body.edit-mode .time-item {
-        padding: 12px 15px;
-        font-size: 1rem;
-        margin-bottom: 6px;
-    }
-    
-    body.edit-mode .keyboard-shortcuts {
-        width: 100%;
-        max-width: 320px;
-        margin: 20px 0 0 0;
-        padding:  15px;
-    }
-
-    body.edit-mode .voice-commands {
-        width: 100%;
-        max-width: 320px;
-        margin: 15px 0 0 0;
-        padding: 15px;
-    }
-    
-    body.edit-mode .clear-all-container {
-        width: 100%;
-        max-width: 320px;
-        margin: 15px 0;
-    }
-    
-    body.edit-mode .btn-clear-all {
-        width: 100%;
-        padding: 12px 20px;
-        font-size: 1.1rem;
-    }
-}
-
-
-@media (max-width: 480px) {
-    body.edit-mode .right-side {
-        padding: 5px;
-    }
-    
-    body.edit-mode .time-display {
-        font-size: 3.5rem !important;
-        margin-bottom: 0;
-    }
-    
-    body.edit-mode .controls {
-        max-width: 260px;
-        gap: 8px;
-        margin: 0 auto 20px auto;
-    }
-    
-    body.edit-mode .btn {
-        padding: 12px 15px;
-        font-size: 1.1rem;
-    }
-    
-    body.edit-mode .live-button-container {
-        max-width: 260px;
-        margin: 0 auto 20px auto;
-    }
-    
-    body.edit-mode .btn-live {
-        padding: 12px 15px;
-        font-size: 1.1rem;
-    }
-    
-    body.edit-mode .best-times {
-        max-width: 280px;
-    }
-    
-    body.edit-mode .time-item {
-        padding: 10px 12px;
-        font-size: 0.9rem;
-    }
-    
-    body.edit-mode .keyboard-shortcuts {
-        max-width: 280px;
-        padding: 12px;
-    }
-
-    body.edit-mode .voice-commands {
-        max-width: 280px;
-        padding: 12px;
-    }
-    
-    body.edit-mode .clear-all-container {
-        max-width: 280px;
-    }
-    
-    body.edit-mode .btn-clear-all {
-        padding: 10px 15px;
-        font-size: 1rem;
-    }
 }
 
 .stopwatch-container {
@@ -215,15 +46,6 @@ body:not(.edit-mode) {
     color: white;
     transition: all 0.3s ease;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.time-display.edit-mode {
-    font-size: 10.4rem;
-    color: #333;
-}
-
-.time-display.clickable {
-    cursor: pointer;
 }
 
 
@@ -274,40 +96,10 @@ body:not(.edit-mode) {
     background-color: #e68900;
 }
 
-.live-button-container {
-    display: flex;
-    justify-content: center;
-    padding: 10px 0 5px 0;
-    margin-top: 0;
-}
-
-.btn-live {
-    background-color: #d32f2f;
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding: 15px 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
-}
-
-.btn-live:hover {
-    background-color: #d32f2f;
-    box-shadow: 0 6px 12px rgba(244, 67, 54, 0.4);
-}
-
-
 .best-times {
     width: 100%;
     max-width: 450px;
     align-self: flex-end;
-}
-
-.best-times.edit-mode {
-    align-self: center;
-    width: 100%;
-    max-width: 600px;
-    margin-top: 0px;
 }
 
 .best-times h3 {
@@ -343,8 +135,6 @@ body:not(.edit-mode) {
     background-color: rgba(255, 0, 0, 0.1);
     border-color: rgba(255, 0, 0, 0.3);
 }
-
-
 .time-info {
     display: flex;
     align-items: flex-start;
@@ -362,25 +152,6 @@ body:not(.edit-mode) {
     font-style: italic;
     padding-top: 3px;
 }
-
-.delete-btn {
-    background: none;
-    border: none;
-    color: #f44336;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    line-height: 1;
-}
-
-.delete-btn:hover {
-    background-color: rgba(244, 67, 54, 0.1);
-    color: #d32f2f;
-}
-
-
 .time-item:first-child {
     background-color: rgba(255, 255, 255, 1);
     border-color: #4CAF50;
@@ -403,110 +174,6 @@ body:not(.edit-mode) {
     padding: 20px;
     color: white;
 }
-
-.no-times.edit-mode {
-    color: #333;
-}
-
-.keyboard-shortcuts {
-    margin-top: 5px;
-    padding:0 15px 15px 15px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.voice-commands {
-    margin-top: 10px;
-    padding: 0 15px 15px 15px;
-    background-color: rgba(76, 175, 80, 0.1);
-    border-radius: 8px;
-    border: 1px solid rgba(76, 175, 80, 0.3);
-}
-
-.shortcut-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding-top: 20px;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-}
-
-.voice-command-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding-top: 15px;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-}
-
-.shortcut-item:last-child {
-    margin-bottom: 0;
-}
-
-.voice-command-item:last-child {
-    margin-bottom: 0;
-}
-
-.shortcut-key {
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-    color: #333;
-}
-
-.voice-command-key {
-    background-color: rgba(76, 175, 80, 0.2);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-    color: #2e7d32;
-}
-
-.voice-toggle-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-}
-
-.btn-voice-toggle {
-    background-color: #4CAF50;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-voice-toggle:hover {
-    background-color: #45a049;
-}
-
-.voice-status {
-    text-align: center;
-    margin-bottom: 15px;
-    padding: 8px;
-    background-color: rgba(76, 175, 80, 0.2);
-    border-radius: 6px;
-    border: 1px solid rgba(76, 175, 80, 0.4);
-}
-
-.voice-status-text {
-    font-weight: bold;
-    color: #2e7d32;
-    font-size: 0.9rem;
-}
-
-
-
 .clear-all-container {
     display: flex;
     justify-content: center;
@@ -529,21 +196,4 @@ body:not(.edit-mode) {
 .btn-clear-all:hover {
     background-color: #d32f2f;
     box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
-}
-
-.source-link {
-    text-align: center;
-    margin-top: 0;
-    padding: 10px;
-}
-
-.source-link a {
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-style: italic;
-    transition: color 0.3s ease;
-}
-
-.source-link a:hover {
-    color: #333;
 }
