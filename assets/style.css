@@ -130,11 +130,6 @@ body {
 .time-item.clickable {
     cursor: pointer;
 }
-
-.time-item.clickable:hover {
-    background-color: rgba(255, 0, 0, 0.1);
-    border-color: rgba(255, 0, 0, 0.3);
-}
 .time-info {
     display: flex;
     align-items: flex-start;

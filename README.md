@@ -32,8 +32,9 @@ This application is optimized for use with **OBS Studio** and other streaming so
 - **Timestamp** for each result (when created)
 - **Minute-by-minute updates** for timestamps
 - **localStorage** storage (data persists)
-- **Click on row** → delete time (without confirmation)
+- **Click on row** → delete time (with confirmation)
 - **Clear All button** → delete all times (with confirmation)
+- **Applause sound** 👏 - plays when stopping the timer under 1 minute (random selection from 3 sounds)
 
 ### 🎨 Design
 - **Green background** (#00FF00) - easy to remove with chroma key
@@ -54,6 +55,10 @@ This application is optimized for use with **OBS Studio** and other streaming so
   - `style.css` - Styles
   - `script.js` - Vue.js application logic
   - `vue.global.prod.js` - Vue.js 3 production library
+  - `sounds/` - Folder with sound effects
+    - `applause-75314.mp3` - Applause sound 1
+    - `applause-alks-ses-efekti-125030.mp3` - Applause sound 2
+    - `applause-cheer-236786.mp3` - Applause sound 3
 - `favicon.svg` - Stopwatch icon
 - `README.md` - Documentation
 
@@ -91,10 +96,11 @@ This application is optimized for use with **OBS Studio** and other streaming so
 
 1. **Time measurement**: Start → Stop → Reset & Save
 2. **Results**: Automatically ranked (best on top) with average time
-3. **Deletion**: Click on any time row to delete it (no confirmation needed)
-4. **Clear All**: Delete all saved times (requires confirmation)
-5. **Keyboard shortcuts**: Spacebar for quick start/stop, Alt+S and Alt+X for other actions
-6. **Auto-save**: Times automatically saved to localStorage
+3. **Applause celebration**: Random applause sound plays when stopping under 1 minute
+4. **Deletion**: Click on any time row to delete it (requires confirmation)
+5. **Clear All**: Delete all saved times (requires confirmation)
+6. **Keyboard shortcuts**: Spacebar for quick start/stop, Alt+S and Alt+X for other actions
+7. **Auto-save**: Times automatically saved to localStorage
 
 ## Colors
 

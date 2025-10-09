@@ -44,6 +44,11 @@ createApp({
             if (this.isRunning) {
                 this.isRunning = false;
                 clearInterval(this.intervalId);
+                
+                // Ha 1 perc alatti az idő, lejátszik egy tapsológ hangot
+                if (this.elapsedTime < 60000 && this.elapsedTime > 1000) {
+                    this.playApplause();
+                }
             }
         },
         reset() {
@@ -63,6 +68,19 @@ createApp({
             this.bestTimes.sort((a, b) => a.time - b.time);
             this.bestTimes = this.bestTimes.slice(0, 10);
             this.saveBestTimes();
+        },
+        playApplause() {
+            const applauseSounds = [
+                'assets/sounds/applause-75314.mp3',
+                'assets/sounds/applause-alks-ses-efekti-125030.mp3',
+                'assets/sounds/applause-cheer-236786.mp3'
+            ];
+            const randomSound = applauseSounds[Math.floor(Math.random() * applauseSounds.length)];
+            const audio = new Audio(randomSound);
+            audio.volume = 0.5; // 50% hangerő
+            audio.play().catch(error => {
+                console.log('Nem sikerült lejátszani a hangot:', error);
+            });
         },
         formatTime(milliseconds) {
             const minutes = Math.floor(milliseconds / 60000);
@@ -106,8 +124,10 @@ createApp({
             }
         },
         removeTimeSimple(index) {
-            this.bestTimes.splice(index, 1);
-            this.saveBestTimes();
+            if (confirm('Biztosan törölni szeretnéd ezt az időt?')) {
+                this.bestTimes.splice(index, 1);
+                this.saveBestTimes();
+            }
         },
         clearAllTimes() {
             if (confirm('Are you sure you want to delete all saved times?')) {
