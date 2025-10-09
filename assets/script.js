@@ -7,7 +7,8 @@ createApp({
             elapsedTime: 0,
             isRunning: false,
             intervalId: null,
-            bestTimes: []
+            bestTimes: [],
+            dailyBestTimes: [] // Top 3 legjobb napi időt tárolja
         }
     },
     computed: {
@@ -27,6 +28,7 @@ createApp({
     },
     mounted() {
         this.loadBestTimes();
+        this.loadDailyBestTimes();
         this.setupKeyboardShortcuts();
 		this.setupTimeUpdater();
     },
@@ -68,6 +70,9 @@ createApp({
             this.bestTimes.sort((a, b) => a.time - b.time);
             this.bestTimes = this.bestTimes.slice(0, 10);
             this.saveBestTimes();
+            
+            // Napi legjobb idő mentése
+            this.saveDailyBestTime();
         },
         playApplause() {
             const applauseSounds = [
@@ -176,6 +181,57 @@ createApp({
                 // Vue reaktivitás miatt kényszerítjük a frissítést
                 this.$forceUpdate();
             }, 60000); // 60 másodperc = 1 perc
+        },
+        getTodayDateString() {
+            const today = new Date();
+            return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        },
+        formatDateString(dateString) {
+            const [year, month, day] = dateString.split('-');
+            return `${year}.${month}.${day}.`;
+        },
+        saveDailyBestTime() {
+            const today = this.getTodayDateString();
+            const currentTime = this.elapsedTime;
+            
+            // Keressük meg, hogy van-e már mai bejegyzés
+            const todayIndex = this.dailyBestTimes.findIndex(item => item.date === today);
+            
+            if (todayIndex !== -1) {
+                // Ha van mai bejegyzés, csak akkor frissítjük, ha jobb az új idő
+                if (currentTime < this.dailyBestTimes[todayIndex].time) {
+                    this.dailyBestTimes[todayIndex].time = currentTime;
+                    this.dailyBestTimes[todayIndex].timestamp = Date.now();
+                }
+            } else {
+                // Ha nincs mai bejegyzés, hozzáadjuk
+                this.dailyBestTimes.push({
+                    date: today,
+                    time: currentTime,
+                    timestamp: Date.now()
+                });
+            }
+            
+            // Rendezzük idő szerint és csak a top 3-at tartjuk meg
+            this.dailyBestTimes.sort((a, b) => a.time - b.time);
+            this.dailyBestTimes = this.dailyBestTimes.slice(0, 3);
+            
+            this.saveDailyBestTimesToStorage();
+        },
+        loadDailyBestTimes() {
+            const saved = localStorage.getItem('stopperDailyBestTimes');
+            if (saved) {
+                this.dailyBestTimes = JSON.parse(saved);
+            }
+        },
+        saveDailyBestTimesToStorage() {
+            localStorage.setItem('stopperDailyBestTimes', JSON.stringify(this.dailyBestTimes));
+        },
+        removeDailyBestTime(index) {
+            if (confirm('Biztosan törölni szeretnéd ezt a napi rekordot?')) {
+                this.dailyBestTimes.splice(index, 1);
+                this.saveDailyBestTimesToStorage();
+            }
         }
     }
 }).mount('#app');

@@ -34,8 +34,17 @@
                         <button 
                             @click="reset" 
                             class="btn btn-reset"
+                            :disabled="isRunning"
                         >
                             Reset & Save
+                        </button>
+                        <button 
+                            v-if="bestTimes.length > 0"
+                            @click="clearAllTimes" 
+                            class="btn btn-clear-all"
+                            :disabled="isRunning"
+                        >
+                            Clear All
                         </button>
                     </div>
                 </div>
@@ -67,15 +76,23 @@
                         </li>
                     </ul>
                     <div v-else class="no-times">
-                        Még nincsenek rögzített idők
+                        Ma még nincsenek rögzített idők.
                     </div>
-                    <div v-if="bestTimes.length > 0" class="clear-all-container">
-                        <button 
-                            @click="clearAllTimes" 
-                            class="btn btn-clear-all"
-                        >
-                            Clear All
-                        </button>
+                    
+                    <div v-if="dailyBestTimes.length > 0" class="daily-best-times">
+                        <h4>Top 3 legjobb 🏆</h4>
+                        <ul class="daily-time-list">
+                            <li 
+                                v-for="(dayRecord, index) in dailyBestTimes" 
+                                :key="index" 
+                                class="daily-time-item clickable"
+                                @click="removeDailyBestTime(index)"
+                            >
+                                <span class="daily-rank">{{ index + 1 }}.</span>
+                                <span class="daily-date">{{ formatDateString(dayRecord.date) }}</span>
+                                <span class="daily-time-value">{{ formatTime(dayRecord.time) }}</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

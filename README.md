@@ -20,26 +20,30 @@ This application is optimized for use with **OBS Studio** and other streaming so
 ## Features
 
 ### 🕐 Stopwatch Timer
-- **Start/Stop/Reset** buttons
+- **Start/Stop/Reset/Clear All** buttons (compact, small size)
+- **Smart button states**: Reset & Clear All disabled while timer is running
 - **Keyboard shortcuts**: Spacebar (Start/Stop), Alt+S (Start/Stop), Alt+X (Reset & Save)
 - **Centisecond precision** (MM:SS.CC format)
 - **Large, readable display** (5.2rem font size)
-- **Bootstrap styled buttons** (Blue Start, Red Stop, Orange Reset)
+- **Bootstrap styled buttons** (Blue Start, Red Stop, Orange Reset, Red Clear All)
 
 ### 📊 Results Management
-- **Top 10 times** automatically stored
+- **Top 10 times** automatically stored per session
 - **Average time (AVG)** calculated and displayed
 - **Timestamp** for each result (when created)
 - **Minute-by-minute updates** for timestamps
 - **localStorage** storage (data persists)
 - **Click on row** → delete time (with confirmation)
-- **Clear All button** → delete all times (with confirmation)
+- **Clear All button** → delete all times (with confirmation, disabled while running)
 - **Applause sound** 👏 - plays when stopping the timer under 1 minute (random selection from 3 sounds)
+- **Top 3 legjobb** 🏆 - tracks and displays the best time from each day, keeps only the top 3 days (black background, white text)
 
 ### 🎨 Design
 - **Green background** (#00FF00) - easy to remove with chroma key
 - **Right-side layout** - doesn't cover main content
 - **Dark panel** - good contrast for readability
+- **Compact buttons** - small size (btn-sm style), all in one row
+- **Smart UI states** - buttons disabled when appropriate
 - **Clean appearance** - optimized for streaming
 
 ## Keyboard Shortcuts
@@ -94,13 +98,16 @@ This application is optimized for use with **OBS Studio** and other streaming so
 
 ## How It Works
 
-1. **Time measurement**: Start → Stop → Reset & Save
+1. **Time measurement**: Start → Stop → Reset & Save (Reset disabled while running)
 2. **Results**: Automatically ranked (best on top) with average time
 3. **Applause celebration**: Random applause sound plays when stopping under 1 minute
-4. **Deletion**: Click on any time row to delete it (requires confirmation)
-5. **Clear All**: Delete all saved times (requires confirmation)
-6. **Keyboard shortcuts**: Spacebar for quick start/stop, Alt+S and Alt+X for other actions
-7. **Auto-save**: Times automatically saved to localStorage
+4. **Daily records**: Automatically saves the best time from each day, displays top 3 days below the list
+5. **Deletion**: Click on any time row to delete it (requires confirmation)
+6. **Daily record deletion**: Click on any daily record to delete it (requires confirmation)
+7. **Clear All**: Delete all saved times (requires confirmation, disabled while timer is running)
+8. **Button layout**: All buttons in one row - Start/Stop, Reset & Save, Clear All (compact size)
+9. **Keyboard shortcuts**: Spacebar for quick start/stop, Alt+S and Alt+X for other actions
+10. **Auto-save**: Times automatically saved to localStorage
 
 ## Colors
 
@@ -108,6 +115,7 @@ This application is optimized for use with **OBS Studio** and other streaming so
 - **Panel**: Dark transparent (rgba(0, 0, 0, 0.9))
 - **Best result**: Highlighted with green border
 - **Buttons**: Blue (Start), Red (Stop), Orange (Reset), Red (Clear All)
+- **Daily records**: Gold/yellow theme (#FFD700) - trophy feel
 
 ## Browser Support
 
