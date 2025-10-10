@@ -29,6 +29,7 @@ createApp({
     mounted() {
         this.loadBestTimes();
         this.loadDailyBestTimes();
+        this.initializeTodayBestTime();
         this.setupKeyboardShortcuts();
 		this.setupTimeUpdater();
     },
@@ -228,8 +229,59 @@ createApp({
             localStorage.setItem('stopperDailyBestTimes', JSON.stringify(this.dailyBestTimes));
         },
         removeDailyBestTime(index) {
+            const recordToDelete = this.dailyBestTimes[index];
+            const today = this.getTodayDateString();
+            
+            // Csak az aktuális napi dátumot lehet törölni
+            if (recordToDelete.date !== today) {
+                alert('Csak az aktuális napi rekordot lehet törölni!');
+                return;
+            }
+            
             if (confirm('Biztosan törölni szeretnéd ezt a napi rekordot?')) {
+                // Töröljük a rekordot
                 this.dailyBestTimes.splice(index, 1);
+                
+                // Ha van idő a fenti listában (bestTimes), onnan bemásoljuk a legjobbat
+                if (this.bestTimes.length > 0) {
+                    const bestTimeFromList = this.bestTimes[0].time; // A legjobb idő (legkisebb)
+                    
+                    // Hozzáadjuk az új legjobb időt a dailyBestTimes-hoz
+                    this.dailyBestTimes.push({
+                        date: today,
+                        time: bestTimeFromList,
+                        timestamp: Date.now()
+                    });
+                    
+                    // Rendezzük és csak a top 3-at tartjuk meg
+                    this.dailyBestTimes.sort((a, b) => a.time - b.time);
+                    this.dailyBestTimes = this.dailyBestTimes.slice(0, 3);
+                }
+                
+                this.saveDailyBestTimesToStorage();
+            }
+        },
+        initializeTodayBestTime() {
+            const today = this.getTodayDateString();
+            
+            // Ellenőrizzük, hogy van-e már mai napi bejegyzés
+            const hasTodayRecord = this.dailyBestTimes.some(item => item.date === today);
+            
+            // Ha nincs mai napi bejegyzés, de van idő a bestTimes listában
+            if (!hasTodayRecord && this.bestTimes.length > 0) {
+                const bestTimeFromList = this.bestTimes[0].time; // A legjobb idő (legkisebb)
+                
+                // Hozzáadjuk az új legjobb időt a dailyBestTimes-hoz
+                this.dailyBestTimes.push({
+                    date: today,
+                    time: bestTimeFromList,
+                    timestamp: Date.now()
+                });
+                
+                // Rendezzük és csak a top 3-at tartjuk meg
+                this.dailyBestTimes.sort((a, b) => a.time - b.time);
+                this.dailyBestTimes = this.dailyBestTimes.slice(0, 3);
+                
                 this.saveDailyBestTimesToStorage();
             }
         }
