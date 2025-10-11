@@ -36,13 +36,13 @@ This application is optimized for use with **OBS Studio** and other streaming so
 - **Click on row** → delete time (with confirmation)
 - **Clear All button** → delete all times (with confirmation, disabled while running)
 - **Sound feedback** 🔊 - intelligent audio system:
-  - **Applause sound** 👏 - plays when stopping under 1 minute (random selection from 3 sounds)
+  - **Applause sound** 👏 - plays when stopping **under 60 seconds** (random selection from 3 sounds)
   - **Time-based sounds** ⏱️ - plays appropriate sound based on elapsed time (up to 70 seconds):
-    - 0-30s → 30.mp3
-    - 30-40s → 40.mp3
-    - 40-50s → 50.mp3
+    - 0-30s → 30.mp3 + applause
+    - 30-40s → 40.mp3 + applause
+    - 40-50s → 50.mp3 + applause
     - 50-60s → 60.mp3 + applause
-    - 60-70s → 70.mp3 (no applause)
+    - 60-70s → 70.mp3 **(no applause, only time sound)**
 - **Top 3 legjobb** 🏆 - tracks and displays the best time from each day, keeps only the top 3 days (black background, white text)
 
 ### 🎨 Design
