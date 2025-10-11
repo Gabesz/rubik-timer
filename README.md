@@ -43,7 +43,7 @@ This application is optimized for use with **OBS Studio** and other streaming so
     - 40-50s → 50.mp3 + applause
     - 50-60s → 60.mp3 + applause
     - 60-70s → 70.mp3 **(no applause, only time sound)**
-- **Top 3 legjobb** 🏆 - tracks and displays the best time from each day, keeps only the top 3 days (black background, white text)
+- **Top 3 Best** 🏆 - tracks and displays the best time from each day, keeps only the top 3 days (black background, white text)
 
 ### 🎨 Design
 - **Green background** (#00FF00) - easy to remove with chroma key
