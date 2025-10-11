@@ -35,7 +35,14 @@ This application is optimized for use with **OBS Studio** and other streaming so
 - **localStorage** storage (data persists)
 - **Click on row** → delete time (with confirmation)
 - **Clear All button** → delete all times (with confirmation, disabled while running)
-- **Applause sound** 👏 - plays when stopping the timer under 1 minute (random selection from 3 sounds)
+- **Sound feedback** 🔊 - intelligent audio system:
+  - **Applause sound** 👏 - plays when stopping under 1 minute (random selection from 3 sounds)
+  - **Time-based sounds** ⏱️ - plays appropriate sound based on elapsed time (up to 70 seconds):
+    - 0-30s → 30.mp3
+    - 30-40s → 40.mp3
+    - 40-50s → 50.mp3
+    - 50-60s → 60.mp3 + applause
+    - 60-70s → 70.mp3 (no applause)
 - **Top 3 legjobb** 🏆 - tracks and displays the best time from each day, keeps only the top 3 days (black background, white text)
 
 ### 🎨 Design
@@ -63,6 +70,11 @@ This application is optimized for use with **OBS Studio** and other streaming so
     - `applause-75314.mp3` - Applause sound 1
     - `applause-alks-ses-efekti-125030.mp3` - Applause sound 2
     - `applause-cheer-236786.mp3` - Applause sound 3
+    - `30.mp3` - Time-based sound for 0-30 seconds
+    - `40.mp3` - Time-based sound for 30-40 seconds
+    - `50.mp3` - Time-based sound for 40-50 seconds
+    - `60.mp3` - Time-based sound for 50-60 seconds
+    - `70.mp3` - Time-based sound for 60-70 seconds
 - `favicon.svg` - Stopwatch icon
 - `README.md` - Documentation
 
@@ -100,7 +112,7 @@ This application is optimized for use with **OBS Studio** and other streaming so
 
 1. **Time measurement**: Start → Stop → Reset & Save (Reset disabled while running)
 2. **Results**: Automatically ranked (best on top) with average time
-3. **Applause celebration**: Random applause sound plays when stopping under 1 minute
+3. **Sound feedback**: Time-based sounds (30-70s) and applause (under 60s) play automatically when stopping
 4. **Daily records**: Automatically saves the best time from each day, displays top 3 days below the list
 5. **Deletion**: Click on any time row to delete it (requires confirmation)
 6. **Daily record deletion**: Click on any daily record to delete it (requires confirmation)

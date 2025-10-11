@@ -48,8 +48,8 @@ createApp({
                 this.isRunning = false;
                 clearInterval(this.intervalId);
                 
-                // Ha 1 perc alatti az idő, lejátszik egy tapsológ hangot
-                if (this.elapsedTime < 60000 && this.elapsedTime > 1000) {
+                // Ha 80 másodperc alatti az idő, lejátssza a hangokat
+                if (this.elapsedTime < 70000 && this.elapsedTime > 1000) {
                     this.playApplause();
                 }
             }
@@ -76,17 +76,46 @@ createApp({
             this.saveDailyBestTime();
         },
         playApplause() {
-            const applauseSounds = [
-                'assets/sounds/applause-75314.mp3',
-                'assets/sounds/applause-alks-ses-efekti-125030.mp3',
-                'assets/sounds/applause-cheer-236786.mp3'
-            ];
-            const randomSound = applauseSounds[Math.floor(Math.random() * applauseSounds.length)];
-            const audio = new Audio(randomSound);
-            audio.volume = 0.5; // 50% hangerő
-            audio.play().catch(error => {
-                console.log('Nem sikerült lejátszani a hangot:', error);
-            });
+            const totalSeconds = this.elapsedTime / 1000;
+            
+            // Taps hang csak 1 perc (60 másodperc) alatt
+            if (totalSeconds < 60) {
+                const applauseSounds = [
+                    'assets/sounds/applause-75314.mp3',
+                    'assets/sounds/applause-alks-ses-efekti-125030.mp3',
+                    'assets/sounds/applause-cheer-236786.mp3'
+                ];
+                const randomSound = applauseSounds[Math.floor(Math.random() * applauseSounds.length)];
+                const applauseAudio = new Audio(randomSound);
+                applauseAudio.volume = 0.5; // 50% hangerő
+                applauseAudio.play().catch(error => {
+                    console.log('Nem sikerült lejátszani a taps hangot:', error);
+                });
+            }
+            
+            // Időalapú hang kiválasztása (80 másodpercig működik)
+            let timeBasedSound = null;
+            
+            if (totalSeconds < 30) {
+                timeBasedSound = 'assets/sounds/30.mp3';
+            } else if (totalSeconds < 40) {
+                timeBasedSound = 'assets/sounds/40.mp3';
+            } else if (totalSeconds < 50) {
+                timeBasedSound = 'assets/sounds/50.mp3';
+            } else if (totalSeconds < 60) {
+                timeBasedSound = 'assets/sounds/60.mp3';
+            } else if (totalSeconds < 70) {
+                timeBasedSound = 'assets/sounds/70.mp3';
+            } 
+            
+            // Időalapú hang lejátszása
+            if (timeBasedSound) {
+                const timeAudio = new Audio(timeBasedSound);
+                timeAudio.volume = 0.5; // 50% hangerő
+                timeAudio.play().catch(error => {
+                    console.log('Nem sikerült lejátszani az időalapú hangot:', error);
+                });
+            }
         },
         formatTime(milliseconds) {
             const minutes = Math.floor(milliseconds / 60000);
